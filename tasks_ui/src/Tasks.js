@@ -2,7 +2,7 @@ import Layout from "./layouts/Layout"
 
 const Tasks = () => {
     return(
-        <Layout>
+        <Layout title="Tasks">
         </Layout>
     )
 }

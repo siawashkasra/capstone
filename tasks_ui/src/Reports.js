@@ -2,8 +2,8 @@ import Layout from "./layouts/Layout"
 
 const Reports = () => {
     return(
-        <Layout>
-            
+        <Layout title="Reports">
+
         </Layout>
     )
 }

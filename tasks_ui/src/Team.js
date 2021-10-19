@@ -1,5 +1,6 @@
 import Layout from "./layouts/Layout";
 import Member from "./Member";
+import Header from "./Header";
 
 const people = [
     {
@@ -17,7 +18,7 @@ const people = [
 
   const Team = () => {
       return(
-          <Layout>
+          <Layout title="Team">
             { people.map((member) => <Member member={member} />)}
           </Layout>
       )

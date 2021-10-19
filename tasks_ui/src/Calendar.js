@@ -3,7 +3,7 @@ import Layout from "./layouts/Layout"
 
 const Calendar = () => {
     return(
-        <Layout>
+        <Layout title="Calendar">
 
         </Layout>
     )
