@@ -1,12 +1,7 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const user = {
     name: 'Tom Cook',
@@ -49,21 +44,19 @@ const Nav = () => {
                         <div className="hidden md:block">
                           <div className="ml-10 flex items-baseline space-x-4">
                                 {navigation.map((item) => (
-                                    <Link to={item.href}>
-                                        <a
-                                            key={item.name}
-                                            href="#"
-                                            className={classNames(
-                                            item.current
-                                                ? 'bg-gray-900 text-white'
-                                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                            'px-3 py-2 rounded-md text-sm font-medium'
-                                            )}
-                                            aria-current={item.current ? 'page' : undefined}
-                                        >
-                                            {item.name}
-                                    </a>
-                                </Link>
+                                    <Link to={item.href} 
+                                      key={item.name}
+                                      href="#"
+                                      className={classNames(
+                                      item.current
+                                          ? 'bg-gray-900 text-white'
+                                          : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                      'px-3 py-2 rounded-md text-sm font-medium'
+                                      )}
+                                      aria-current={item.current ? 'page' : undefined}>
+        
+                                      {item.name}
+                                    </Link>
                                 ))}
                           </div>
                         </div>

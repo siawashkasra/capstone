@@ -1,6 +1,7 @@
 import Layout from "./layouts/Layout";
 import Member from "./Member";
-import Header from "./Header";
+import { useState } from "react";
+import CreateModal from "./layouts/Team/CreateModal";
 
 const people = [
     {
@@ -17,9 +18,15 @@ const people = [
 
 
   const Team = () => {
+    const [state, setstate] = useState(false)
+
+    const setOpen = () => {
+      setstate(!state)
+    }
       return(
-          <Layout title="Team">
+          <Layout title="Team" setOpen={setOpen}>
             { people.map((member) => <Member member={member} />)}
+            <CreateModal open={state} setOpen={setstate} />
           </Layout>
       )
   }

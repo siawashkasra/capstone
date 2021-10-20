@@ -1,10 +1,10 @@
 import Header from "../Header"
 import Nav from "./Nav"
 
-const Layout = ({children, title}) => {
+const Layout = ({children, title, setOpen}) => {
     return(
         <>  <Nav />
-            <Header title={title} />
+            <Header title={title} setOpen={setOpen} />
             <main>
                 <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                 {/* Replace with your content */}
