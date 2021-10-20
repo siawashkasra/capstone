@@ -1,7 +1,4 @@
-import Layout from "./layouts/Layout";
 import Member from "./Member";
-import { useState } from "react";
-import CreateModal from "./layouts/Team/CreateModal";
 
 const people = [
     {
@@ -17,17 +14,18 @@ const people = [
   ]
 
 
-  const Team = () => {
-    const [state, setstate] = useState(false)
-
-    const setOpen = () => {
-      setstate(!state)
-    }
+  const Team = ({team}) => {
+ 
       return(
-          <Layout title="Team" setOpen={setOpen}>
-            { people.map((member) => <Member member={member} />)}
-            <CreateModal open={state} setOpen={setstate} />
-          </Layout>
+            <div className="bg-white m-4 p-5 border shadow rounded-lg">
+              <div className="head flex justify-between">
+                <h5>{team.name}</h5>
+                <img className="h-10 w-10 rounded-full" src={team.image} alt={team.name} />
+              </div>
+              <div className="body">
+                <p>{team.desc}</p>
+              </div>
+            </div>
       )
   }
 

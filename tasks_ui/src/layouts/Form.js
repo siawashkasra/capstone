@@ -21,13 +21,9 @@ const Form = () => {
                             <div className="col-span-6">
                                 <Input label="Team Name" />
                             </div>
-
-                            <div className="col-span-6">
-                                <List />
-                            </div>
                             
                             <div className="col-span-6">
-                                <TextArea />
+                                <TextArea label="Description" />
                             </div>
                         </div>
                         </div>

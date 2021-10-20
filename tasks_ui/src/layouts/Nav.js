@@ -11,7 +11,7 @@ const user = {
   }
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', current: true },
-    { name: 'Team', href: '/team', current: false },
+    { name: 'Team', href: '/teams', current: false },
     { name: 'Tasks', href: '/tasks', current: false },
     { name: 'Calendar', href: '/calendar', current: false },
     { name: 'Reports', href: '/reports', current: false },
