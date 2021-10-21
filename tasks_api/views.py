@@ -4,6 +4,8 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
 from .serializers import TeamSerializer, MemberSerializer, UserSerializer, GroupSerializer
+from rest_framework.response import Response
+
 
 # Create your views here.
 
@@ -40,6 +42,9 @@ class TeamViewSet(viewsets.ModelViewSet):
     API endpoint that allows teams to be viewed or edited.
     """
 
-    queryset = Team.objects.all()
+    def get_queryset(self):
+        return Team.objects.all()
+
+
     serializer_class = TeamSerializer
     permission_classes = [permissions.IsAuthenticated]

@@ -5,20 +5,20 @@ from rest_framework import serializers
 from .models import Team, Member
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['url', 'username', 'email', 'groups']
         
 
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ['url', 'name']
 
 
-class MemberSerializer(serializers.HyperlinkedModelSerializer):
+class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
         fields = "__all__"
@@ -26,8 +26,8 @@ class MemberSerializer(serializers.HyperlinkedModelSerializer):
 
 
     
-class TeamSerializer(serializers.HyperlinkedModelSerializer):
-    # view_name='team-detail'
+class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields= "__all__"
+        fields= ['id', 'name', 'desc', 'members']
+        depth = 1

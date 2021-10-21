@@ -25,13 +25,19 @@ SECRET_KEY = 'django-insecure-ld#$m+dbn%m_r5dn_fp_e_y2s-2$5b5!!88m@6t91a2=p@*bd(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['http://localhost:3000/', "localhost"]
+
+# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+'http://localhost:3000',  # for localhost (REACT Default)
+)
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'rest_framework',
+    'corsheaders',
     'tasks_api',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -137,6 +144,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+
+    # 'DEFAULT_AUTHENTICATION_CLASSES': ( 
+    #     'rest_framework.authentication.SessionAuthentication',
+    # ),
 }
