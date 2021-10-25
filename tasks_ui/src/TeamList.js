@@ -12,23 +12,33 @@ const TeamList = () => {
       setstate(!state)
     }
 
+    async function getTeamList() {
+        const response = await axios.get('http://localhost:8000/teams/', {
+            headers: {
+                Accept: "application/json" 
+            },
+            auth: {
+                username: 'siawashkasra',
+                password: 'kasra@123'
+            }
+        })
+        setTeam(response.data)
+    }
+
     
+    const onSubmitTeamForm = async (newTeam) => {
+       const res = await axios.post('http://localhost:8000/teams/', newTeam, {
+        auth: {
+            username: 'siawashkasra',
+            password: 'kasra@123'
+        }
+       })
+       if (res.status === 201) {
+            getTeamList()
+       }
+    }
 
     useEffect( () => {
-
-        async function getTeamList() {
-            const response = await axios.get('http://localhost:8000/teams/', {
-                headers: {
-                    Accept: "application/json" 
-                },
-                auth: {
-                    username: 'siawashkasra',
-                    password: 'kasra@123'
-                }
-            })
-            setTeam(response.data)
-        }
-
         getTeamList()
 
       }, []);
@@ -44,7 +54,9 @@ const TeamList = () => {
 
             <CreateModal
                 open={state} 
-                setOpen={setOpen} />
+                setOpen={setOpen}
+                onSubmitTeamForm={onSubmitTeamForm}
+                />
         </Layout>
     )
 }
