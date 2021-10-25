@@ -6,6 +6,7 @@ import Tasks from './Tasks';
 import Calendar from './Calendar';
 import Reports from './Reports';
 import TeamList from './TeamList';
+import Landing from './Landing';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/tasks" render={()=> <Tasks />} />
           <Route exact path="/calendar" render={()=> <Calendar />} />
           <Route exact path="/reports" render={()=> <Reports />} />
+          <Route exact path="" render={()=> <Landing />} />
       </Switch>
     </>
   );
