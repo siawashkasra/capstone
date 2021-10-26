@@ -7,6 +7,9 @@ router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'members', views.MemberViewSet)
 router.register(r'teams', views.TeamViewSet, basename='team')
+router.register(r'tasks', views.TaskViewSet, basename='task')
+router.register(r'task-stages', views.TaskStageViewSet, basename='task-stages')
+
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

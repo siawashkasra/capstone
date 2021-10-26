@@ -1,5 +1,4 @@
 const Header = ({title, setOpen}) => {
-    console.log(title)
     return (
         <>
           {/*
