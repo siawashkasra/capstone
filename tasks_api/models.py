@@ -59,6 +59,7 @@ class TaskStage(models.Model):
     stage = models.CharField("Stages", choices=STAGES, max_length=20, null=False, default="draft")
     order = models.IntegerField("Order", null=True)
 
+
     def __str__(self):
         return self.stage
 
@@ -84,7 +85,7 @@ class Task(models.Model):
     updated_at = models.DateTimeField("Updated At", null=False, auto_now=True)
     due_to = models.DateTimeField("Due to", null=True)
     assignee = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True)
-    stage = models.ForeignKey(TaskStage, on_delete=models.DO_NOTHING, null=False)
+    stage = models.ForeignKey(TaskStage, related_name="tasks", on_delete=models.DO_NOTHING, null=True)
 
     def __str__(self):
         return self.title

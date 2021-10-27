@@ -40,14 +40,15 @@ class TeamSerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ['id', 'title', 'desc', 'due_to', 'stage', 'assignee']
+        fields = ['id', 'title', 'desc', 'due_to', 'assignee']
         depth = 1
 
 
 
 # Class TaskStageSerializer.
 class TaskStageSerializer(serializers.ModelSerializer):
+    tasks = serializers.StringRelatedField(many=True)
     class Meta:
         model = TaskStage
-        fields = ['id', 'stage', 'order']
+        fields = ['id', 'stage', 'order', 'tasks']
         depth = 1
