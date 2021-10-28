@@ -7,4 +7,3 @@ admin.site.register(Member)
 admin.site.register(Team)
 admin.site.register(Task)
 admin.site.register(TaskStage)
-

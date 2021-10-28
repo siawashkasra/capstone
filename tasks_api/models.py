@@ -18,11 +18,10 @@ class Member(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{ self.first_name } {self.last_name}' 
+        return f'{ self.first_name } {self.last_name}'
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
-
 
 
 # Class Team.
@@ -31,7 +30,8 @@ class Team(models.Model):
     name = models.CharField("Name", null=False, max_length=256)
     desc = models.TextField("Description", null=False)
     members = models.ManyToManyField(Member, related_name='teams_members')
-    created_at = models.DateTimeField("Created At", auto_now_add=True, null=True)
+    created_at = models.DateTimeField(
+        "Created At", auto_now_add=True, null=True)
     updated_at = models.DateTimeField("Update At", auto_now=True, null=True)
 
     def __str__(self):
@@ -39,7 +39,6 @@ class Team(models.Model):
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
-
 
 
 # Class TaskStage.
@@ -56,16 +55,15 @@ class TaskStage(models.Model):
         ('completed', 'Completed')
     )
 
-    stage = models.CharField("Stages", choices=STAGES, max_length=20, null=False, default="draft")
+    stage = models.CharField("Stages", choices=STAGES,
+                             max_length=20, null=False, default="draft")
     order = models.IntegerField("Order", null=True)
-
 
     def __str__(self):
         return self.stage
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
-
 
 
 # Class Task.
@@ -80,19 +78,19 @@ class Task(models.Model):
 
     title = models.CharField("Title", null=False, max_length=256)
     desc = models.TextField("Description", null=False)
-    priority = models.CharField("Priority", choices=PRIORITIES, max_length=10, default='normal')
-    created_at = models.DateTimeField("Created At", null=False, auto_now_add=True)
+    priority = models.CharField(
+        "Priority", choices=PRIORITIES, max_length=10, default='normal')
+    created_at = models.DateTimeField(
+        "Created At", null=False, auto_now_add=True)
     updated_at = models.DateTimeField("Updated At", null=False, auto_now=True)
     due_to = models.DateTimeField("Due to", null=True)
     assignee = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True)
-    stage = models.ForeignKey(TaskStage, related_name="tasks", on_delete=models.DO_NOTHING, null=True)
+    stage = models.ForeignKey(
+        TaskStage, related_name="tasks", on_delete=models.DO_NOTHING, null=True)
+    order = models.IntegerField("order", null=True)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
-
-
-
-
