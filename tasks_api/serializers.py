@@ -42,7 +42,6 @@ class TaskSerializer(serializers.ModelSerializer):
 
 # Class TaskStageSerializer.
 class TaskStageSerializer(serializers.ModelSerializer):
-    tasks = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = TaskStage

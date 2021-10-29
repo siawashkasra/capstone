@@ -86,6 +86,3 @@ class TaskStageViewSet(viewsets.ModelViewSet):
 
     serializer_class = TaskStageSerializer
     permission_classes = [permissions.IsAuthenticated]
-
-    def partial_update(self, request, pk=None):
-        print(request, pk)
