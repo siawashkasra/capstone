@@ -26,6 +26,8 @@ class Member(models.Model):
 
 # Class Team.
 class Team(models.Model):
+    class Meta:
+        ordering = ('-created_at', )
 
     name = models.CharField("Name", null=False, max_length=256)
     desc = models.TextField("Description", null=False)
@@ -68,6 +70,9 @@ class TaskStage(models.Model):
 
 # Class Task.
 class Task(models.Model):
+
+    class Meta:
+        ordering = ('order', )
 
     PRIORITIES = (
         ('low', 'Low'),

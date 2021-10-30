@@ -6,7 +6,7 @@ import Form from '../Form'
 
 
 
-const CreateModal = ({ open, setOpen, onSubmitTeamForm })=> {
+const CreateModal = ({ open, setOpen, setTeam, createTeam })=> {
 
   const cancelButtonRef = useRef(null)
 
@@ -50,7 +50,8 @@ const CreateModal = ({ open, setOpen, onSubmitTeamForm })=> {
                       Create a Team
                     </Dialog.Title>
                     <Form
-                      onSubmitTeamForm={onSubmitTeamForm}
+                      setTeam={setTeam}
+                      createTeam={createTeam}
                       setOpen={setOpen}
                     />
                   </div>

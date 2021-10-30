@@ -3,18 +3,17 @@ import TextArea from "./TextArea";
 import { set, useForm } from "react-hook-form";
 import { useRef } from "react";
 
-const Form = ({ onSubmitTeamForm, setOpen }) => {
+const Form = ({setTeam, createTeam, setOpen }) => {
   const cancelButtonRef = useRef(null);
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    onSubmitTeamForm(data);
-    setOpen(false)
+    createTeam(data, setTeam);
+    setOpen(false);
   };
 
   return (
@@ -32,11 +31,19 @@ const Form = ({ onSubmitTeamForm, setOpen }) => {
               <div className="px-4 py-5 bg-white sm:p-6">
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-6">
-                    <Input label="Team Name" register={register} errors={errors}/>
+                    <Input
+                      label="Team Name"
+                      register={register}
+                      errors={errors}
+                    />
                   </div>
 
                   <div className="col-span-6">
-                    <TextArea label="Description" register={register} errors={errors} />
+                    <TextArea
+                      label="Description"
+                      register={register}
+                      errors={errors}
+                    />
                   </div>
                 </div>
               </div>

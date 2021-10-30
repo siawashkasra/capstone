@@ -36,7 +36,8 @@ class TeamSerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ['id', 'title', 'desc', 'due_to', 'assignee', 'stage', 'order']
+        fields = ['id', 'title', 'desc', 'due_to',
+                  'assignee', 'stage', 'order']
         depth = 1
 
 

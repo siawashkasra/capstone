@@ -1,51 +1,18 @@
 import TaskList from "./TaskList";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { DragDropContext } from "react-beautiful-dnd";
+import { reOrder, shift as shiftTask } from "./utilities/Utilities";
+import { getData, persistOrder, persistShift } from "./API/Tasks";
 
 const TaskItem = () => {
-  // const [tasks, setTask] = useState([]);
-  // const [refresh, setRefresh] = useState(false);
   const [stages, setStage] = useState([]);
 
-  const fetchTaskStage = async () => {
-    const response = await axios.get("http://localhost:8000/task-stages/", {
-      headers: {
-        Accept: "application/json",
-      },
-      auth: {
-        username: "siawashkasra",
-        password: "kasra@123",
-      },
-    });
-    setStage(response.data);
-  };
-
-  const reorder = async (newOrder) => {
-    const res = await axios.patch(
-      "http://localhost:8000/tasks/reorder/",
-      newOrder,
-      {
-        auth: {
-          username: "siawashkasra",
-          password: "kasra@123",
-        },
-      }
-    );
-    console.log(res)
-    if (res.status === 200) {
-      fetchTaskStage()
-    }
-  };
-
   useEffect(() => {
-    fetchTaskStage();
+    getData(setStage)
     console.log("rendering");
   }, []);
 
-
   const onDragEnd = (result) => {
-    console.log("onDratEnd", result)
     const { destination, source, draggableId } = result;
     if (!destination) {
       return;
@@ -56,28 +23,21 @@ const TaskItem = () => {
     ) {
       return;
     }
-    const stage = stages.filter((stage) => stage.id === parseInt(source.droppableId))
-    
-    if(destination.droppableId === source.droppableId && destination.index !== source.index) {
-      let tempTasks = Array.from(stage[0].tasks);
-      tempTasks.splice(source.index, 1);
-      tempTasks.splice(destination.index, 0, stage[0].tasks.filter(task => task.id === parseInt(draggableId))[0]);
-      setStage(stages.map((stage) => stage.id === parseInt(source.droppableId) ? {...stage, tasks: tempTasks}: stage))    
-      let newOrder = [];
-      for (let index = 0; index < tempTasks.length; index++) {
-        newOrder.push({ id: tempTasks[index].id, order: index });
-      }
-      reorder(newOrder);
+    const stage = stages.filter(
+      (stage) => stage.id === parseInt(source.droppableId)
+    );
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index !== source.index
+    ) {
+      persistOrder(
+        reOrder(stage, source, destination, draggableId, setStage, stages), setStage
+      );
     }
 
-    if(destination.droppableId !== source.droppableId) {
-      let tasks = []
-      const task = stage[0].tasks.find(task => task.id === parseInt(draggableId))
-      const shiftedTask = {...task, stage: parseInt(destination.droppableId)}
-      tasks.push(shiftedTask)  
-      const newStageState = stages.map((stage) => stage.id === parseInt(destination.droppableId) ? {...stage, tasks: tasks} : stage)
-      console.log(newStageState)
-      setStage(newStageState)
+    if (destination.droppableId !== source.droppableId) {
+      persistShift(shiftTask(stage, source, destination, stages, setStage), setStage);
     }
   };
 

@@ -1,3 +1,4 @@
+from django.db import connections
 from .models import Member, TaskStage, Team, Task
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
@@ -52,24 +53,27 @@ class TaskViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows tasks to be viewed or edited.
     """
-    
-    @action(methods=['patch'], detail=False, 
-    permission_classes=[permissions.IsAuthenticated]) 
+
+    @action(methods=['patch'], detail=False,
+            permission_classes=[permissions.IsAuthenticated])
     def reorder(self, request):
         for item in request.data:
-            task = Task.objects.get(id= item.get('id'))
-            task.order= item.get('order')
+            task = Task.objects.get(id=item.get('id'))
+            task.order = item.get('order')
             task.save()
-  
+
         return Response({'status': 'tasks has been reordered'})
 
+    def partial_update(self, request, pk=None):
+        task = Task.objects.filter(id=pk).get()
+        taskStage = TaskStage.objects.filter(
+            id=request.data.get('stage')).get()
+        task.stage = taskStage
+        task.save()
+        return Response({'status': 'stage has been updated!'})
 
     def get_queryset(self):
-        query_set = Task.objects.all().order_by('order')
-        stage = self.request.query_params.get('stage')
-
-        if stage is not None:
-            query_set = Task.objects.filter(stage=stage)
+        query_set = Task.objects.all()
         return query_set
 
     serializer_class = TaskSerializer
