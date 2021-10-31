@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const STAGE_BASE_URL = "http://localhost:8000/task-stages/";
 const RE_ORDER_TASKS_URL = "http://localhost:8000/tasks/reorder/";
 const TASKS_BASE_URL = "http://localhost:8000/tasks/";
@@ -26,21 +25,21 @@ const persistOrder = async (newOrder) => {
   const res = await axios.patch(RE_ORDER_TASKS_URL, newOrder, {
     auth: AUTH,
   });
-  return res.status
+  return res.status;
 };
 
 const persistShift = async (task) => {
   const res = await axios.patch(
     TASKS_BASE_URL + task.id + "/",
-        { 
-            id: task.id, 
-            stage: task.stage 
-        },
-        {
-            auth: AUTH,
-        }
+    {
+      id: task.id,
+      stage: task.stage,
+    },
+    {
+      auth: AUTH,
+    }
   );
-  return res.status
+  return res.status;
 };
 
 export { getData, persistOrder, persistShift };

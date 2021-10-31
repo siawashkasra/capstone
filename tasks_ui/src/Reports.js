@@ -1,11 +1,7 @@
-import Layout from "./layouts/Layout"
+import Layout from "./layouts/Layout";
 
 const Reports = () => {
-    return(
-        <Layout title="Reports">
+  return <Layout title="Reports"></Layout>;
+};
 
-        </Layout>
-    )
-}
-
-export default Reports
+export default Reports;

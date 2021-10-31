@@ -13,7 +13,6 @@ const removeItem = (stage, source, stages) => {
 };
 
 const reOrder = async (tasks, setStage) => {
-  console.log("insidre reorder", tasks);
   let newOrder = [];
   if (tasks.length > 1) {
     for (let index = 0; index < tasks.length; index++) {
@@ -21,7 +20,6 @@ const reOrder = async (tasks, setStage) => {
     }
   }
   const status = await persistOrder(newOrder);
-  console.log("persist order", status);
   if (status === 200) {
     getData(setStage);
   }
@@ -57,23 +55,20 @@ const shift = async (stage, source, destination, stages, setStage) => {
   const task = stage[0].tasks[source.index];
   const shiftedTask = { ...task, stage: parseInt(destination.droppableId) };
   let newStageState = removeItem(stage, source, stages);
-  
+
   const newTaskStage = newStageState.find(
     (stage) => stage.id === parseInt(destination.droppableId)
   );
-  const unOrderedTasks = newTaskStage.tasks
+  const unOrderedTasks = newTaskStage.tasks;
   unOrderedTasks.splice(destination.index, 0, shiftedTask);
   newStageState = newStageState.map((stage) =>
     stage.id === parseInt(destination.droppableId)
       ? {
           ...stage,
-          tasks: unOrderedTasks
-            
+          tasks: unOrderedTasks,
         }
       : stage
   );
-  console.log("shifted task", shiftedTask,  unOrderedTasks);
-  console.log("testing", unOrderedTasks);
   setStage(newStageState);
   const status = await persistShift(shiftedTask);
   if (status === 200) {

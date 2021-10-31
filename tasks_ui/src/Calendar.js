@@ -1,12 +1,7 @@
-import Layout from "./layouts/Layout"
-
+import Layout from "./layouts/Layout";
 
 const Calendar = () => {
-    return(
-        <Layout title="Calendar">
+  return <Layout title="Calendar"></Layout>;
+};
 
-        </Layout>
-    )
-}
-
-export default Calendar
+export default Calendar;

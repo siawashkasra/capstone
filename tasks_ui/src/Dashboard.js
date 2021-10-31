@@ -1,12 +1,7 @@
-import Layout from "./layouts/Layout"
+import Layout from "./layouts/Layout";
 
 const Dashboard = () => {
-    return(
-        <Layout title="Dashboard">
+  return <Layout title="Dashboard"></Layout>;
+};
 
-        </Layout>
-    )
-}
-
-
-export default Dashboard
+export default Dashboard;

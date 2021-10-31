@@ -9,7 +9,6 @@ const TaskItem = () => {
 
   useEffect(() => {
     getData(setStage);
-    console.log("rendering");
   }, []);
 
   const onDragEnd = (result) => {
