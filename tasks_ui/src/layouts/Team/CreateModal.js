@@ -6,8 +6,8 @@ import Form from '../Form'
 
 
 
-const CreateModal = ({ open, setOpen, setTeam, createTeam })=> {
-
+const CreateModal = (props)=> {
+  const { open, setOpen, setTeam, createTeam } = props
   const cancelButtonRef = useRef(null)
 
   return (

@@ -34,6 +34,7 @@ class TeamSerializer(serializers.ModelSerializer):
 
 # Class TaskSerializer.
 class TaskSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Task
         fields = ['id', 'title', 'desc', 'due_to',
