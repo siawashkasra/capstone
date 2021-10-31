@@ -40,10 +40,10 @@ const TaskItem = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="flex justify-between">
+      <div className="flex justify-betwee">
         {stages.map((stage, index) => (
           <div className="card m-2 shado w-full">
-            <div className="stage-header p-2 bg-gray-800 text-white text-center">
+            <div className="shadow-lg stage-header p-2 bg-purple-500 text-white text-center rounded-md">
               <h5>{stage.stage}</h5>
             </div>
             <div className="stage-body p-1 text-center w-full">

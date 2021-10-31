@@ -43,8 +43,9 @@ class TaskSerializer(serializers.ModelSerializer):
 
 # Class TaskStageSerializer.
 class TaskStageSerializer(serializers.ModelSerializer):
+    stage = serializers.CharField(source='get_stage_display')
 
     class Meta:
         model = TaskStage
         fields = ['id', 'stage', 'order', 'tasks']
-        depth = 1
+        depth = 2

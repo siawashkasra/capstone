@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const TEAMS_BASE_URL = "http://localhost:8000/teams/";
 const AUTH = {
   username: "siawashkasra",

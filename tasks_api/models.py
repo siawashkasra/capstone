@@ -58,7 +58,7 @@ class TaskStage(models.Model):
     )
 
     stage = models.CharField("Stages", choices=STAGES,
-                             max_length=20, null=False, default="draft")
+                             max_length=20, null=False, default="draft" )
     order = models.IntegerField("Order", null=True)
 
     def __str__(self):
