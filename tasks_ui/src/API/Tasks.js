@@ -22,16 +22,14 @@ const getData = async (setStage) => {
   setStage(response.data);
 };
 
-const persistOrder = async (newOrder, setStage) => {
+const persistOrder = async (newOrder) => {
   const res = await axios.patch(RE_ORDER_TASKS_URL, newOrder, {
     auth: AUTH,
   });
-  if (res.status === 200) {
-    getData(setStage);
-  }
+  return res.status
 };
 
-const persistShift = async (task, setStage) => {
+const persistShift = async (task) => {
   const res = await axios.patch(
     TASKS_BASE_URL + task.id + "/",
         { 
@@ -42,9 +40,7 @@ const persistShift = async (task, setStage) => {
             auth: AUTH,
         }
   );
-  if (res.status === 200) {
-    getData(setStage);
-  }
+  return res.status
 };
 
 export { getData, persistOrder, persistShift };

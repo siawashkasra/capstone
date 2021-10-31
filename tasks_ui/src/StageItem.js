@@ -1,14 +1,14 @@
 import TaskList from "./TaskList";
 import { useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import { reOrder, shift as shiftTask } from "./utilities/Utilities";
-import { getData, persistOrder, persistShift } from "./API/Tasks";
+import { dragAndDrop, shift } from "./utilities/Utilities";
+import { getData } from "./API/Tasks";
 
 const TaskItem = () => {
   const [stages, setStage] = useState([]);
 
   useEffect(() => {
-    getData(setStage)
+    getData(setStage);
     console.log("rendering");
   }, []);
 
@@ -31,13 +31,11 @@ const TaskItem = () => {
       destination.droppableId === source.droppableId &&
       destination.index !== source.index
     ) {
-      persistOrder(
-        reOrder(stage, source, destination, draggableId, setStage, stages), setStage
-      );
+      dragAndDrop(stage, source, destination, draggableId, setStage, stages);
     }
 
     if (destination.droppableId !== source.droppableId) {
-      persistShift(shiftTask(stage, source, destination, stages, setStage), setStage);
+      shift(stage, source, destination, stages, setStage);
     }
   };
 
