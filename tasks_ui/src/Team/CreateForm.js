@@ -1,6 +1,6 @@
-import Input from "./Input";
-import TextArea from "./TextArea";
-import { set, useForm } from "react-hook-form";
+import Input from "../layouts/Input";
+import TextArea from "../layouts/TextArea";
+import { useForm } from "react-hook-form";
 import { useRef } from "react";
 
 const Form = ({setTeam, createTeam, setOpen }) => {

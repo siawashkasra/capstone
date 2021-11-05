@@ -42,4 +42,10 @@ const persistShift = async (task) => {
   return res.status;
 };
 
-export { getData, persistOrder, persistShift };
+const createTask = async (newTask) => {
+    await axios.post(TASKS_BASE_URL, newTask, {
+    auth: AUTH
+  })
+}
+
+export { getData, persistOrder, persistShift, createTask };

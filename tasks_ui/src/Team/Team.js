@@ -1,4 +1,4 @@
-import Avatar from "./layouts/Avatar";
+import Avatar from "../layouts/Avatar";
 
 const Team = ({ team }) => {
   return (

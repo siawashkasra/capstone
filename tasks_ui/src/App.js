@@ -1,10 +1,10 @@
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
-import Tasks from "./Tasks";
+import Tasks from "./Task/Tasks";
 import Calendar from "./Calendar";
 import Reports from "./Reports";
-import TeamList from "./TeamList";
+import TeamList from "./Team/TeamList";
 import Landing from "./Landing";
 
 function App() {

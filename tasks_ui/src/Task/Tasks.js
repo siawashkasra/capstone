@@ -1,10 +1,10 @@
-import Layout from "./layouts/Layout";
-import TaskItem from "./StageItem";
+import Layout from "../layouts/Layout";
+import TaskGroup from "./TaskGroup";
 
 const Tasks = () => {
   return (
     <Layout title="Tasks">
-      <TaskItem />
+      <TaskGroup />
     </Layout>
   );
 };

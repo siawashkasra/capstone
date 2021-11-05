@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import Layout from "./layouts/Layout";
+import Layout from "../layouts/Layout";
 import Team from "./Team";
-import CreateModal from "./layouts/Team/CreateModal";
-import { getTeamData, createTeam } from "./API/Teams";
+import Modal from "../layouts/Modal";
+import { getTeamData, createTeam } from "../API/Teams";
+import Form from "./CreateForm";
 
 const TeamList = () => {
   const [state, setstate] = useState(false);
@@ -27,13 +28,19 @@ const TeamList = () => {
           <Team key={team.id} team={team} />
         ))}
       </div>
-
-      <CreateModal
+      <Modal
+        title="Create a Team"
         open={state}
         setOpen={setOpen}
         setTeam={setTeam}
-        createTeam={createTeamClosure}
-      />
+      >
+        <Form
+          setTeam={setTeam}
+          createTeam={createTeam}
+          setOpen={setOpen}
+          createTeamClosure={createTeamClosure}
+        />
+      </Modal>
     </Layout>
   );
 };

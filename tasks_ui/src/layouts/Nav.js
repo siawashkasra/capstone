@@ -28,7 +28,7 @@ const user = {
 
 const Nav = () => {
     return (
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className="bg-black">
               {({ open }) => (
                 <>
                   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,8 +56,8 @@ const Nav = () => {
                                       href="#"
                                       className={classNames(
                                       item.current
-                                          ? 'bg-gray-900 text-white'
-                                          : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                          ? 'bg-purple-100 text-purple'
+                                          : 'text-gray-300 hover:bg-purple-100 hover:text-purple-900',
                                       'px-3 py-2 rounded-md text-sm font-medium'
                                       )}
                                       aria-current={item.current ? 'page' : undefined}>

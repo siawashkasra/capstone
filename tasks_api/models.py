@@ -11,7 +11,7 @@ class Member(models.Model):
     first_name = models.CharField('First Name', null=True, max_length=256)
     last_name = models.CharField('Last Name', null=True, max_length=256)
     email = models.EmailField('Emali', null=False)
-    photo = models.CharField("Photo", max_length=256)
+    avatar = models.CharField("Avatar", max_length=256)
     about = models.TextField("About")
     created_at = models.DateTimeField("Created At", auto_now_add=True)
     updated_at = models.DateTimeField("Update At", auto_now=True, null=True)
@@ -68,31 +68,38 @@ class TaskStage(models.Model):
         return reverse("model_detail", kwargs={"pk": self.pk})
 
 
+# Class Lable.
+class Label(models.Model):
+
+    class Meta:
+        ordering = ('label', )
+
+    value = models.CharField("Value", max_length=256, null=False)
+    label = models.CharField("Label", max_length=256, null=False)
+    color = models.CharField("Color", max_length=256, null=False)
+
+
+    def __str__(self):
+        return "Label< " + self.label + "> " + " <Color: " + self.color + ">"
+
+
 # Class Task.
 class Task(models.Model):
 
     class Meta:
         ordering = ('order', )
 
-    PRIORITIES = (
-        ('low', 'Low'),
-        ('normal', 'Normal'),
-        ('high', 'High'),
-        ('critical', 'Critical')
-    )
-
     title = models.CharField("Title", null=False, max_length=256)
     desc = models.TextField("Description", null=False)
-    priority = models.CharField(
-        "Priority", choices=PRIORITIES, max_length=10, default='normal')
     created_at = models.DateTimeField(
-        "Created At", null=False, auto_now_add=True)
+        "Created At", null=False, auto_now_add=True,)
     updated_at = models.DateTimeField("Updated At", null=False, auto_now=True)
     due_to = models.DateTimeField("Due to", null=True)
     assignee = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True)
     stage = models.ForeignKey(
         TaskStage, related_name="tasks", on_delete=models.DO_NOTHING, null=True)
     order = models.IntegerField("order", null=True)
+    labels = models.ManyToManyField(Label, related_name='labels')
 
     def __str__(self):
         return self.title

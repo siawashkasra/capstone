@@ -1,9 +1,9 @@
 from django.db import connections
-from .models import Member, TaskStage, Team, Task
+from .models import Label, Member, TaskStage, Team, Task
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
-from .serializers import TeamSerializer, MemberSerializer, UserSerializer, GroupSerializer, TaskSerializer, TaskStageSerializer
+from .serializers import LabelSerializer, TeamSerializer, MemberSerializer, UserSerializer, GroupSerializer, TaskSerializer, TaskStageSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -89,4 +89,16 @@ class TaskStageViewSet(viewsets.ModelViewSet):
         return TaskStage.objects.all()
 
     serializer_class = TaskStageSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class LabelViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows labels to be viewed or edited.
+    """
+
+    def get_queryset(self):
+        return Label.objects.all()
+
+    serializer_class = LabelSerializer
     permission_classes = [permissions.IsAuthenticated]

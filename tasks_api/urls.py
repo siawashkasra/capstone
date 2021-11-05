@@ -9,6 +9,7 @@ router.register(r'members', views.MemberViewSet)
 router.register(r'teams', views.TeamViewSet, basename='team')
 router.register(r'tasks', views.TaskViewSet, basename='tasks')
 router.register(r'task-stages', views.TaskStageViewSet, basename='task-stages')
+router.register(r'labels', views.LabelViewSet, basename='labels')
 
 
 # Wire up our API using automatic URL routing.

@@ -1,5 +1,5 @@
 
-const TextArea = ({ label, register, errors }) => {
+const TextArea = ({ label, description, setDescription }) => {
 
     return(
         <>
@@ -12,12 +12,12 @@ const TextArea = ({ label, register, errors }) => {
                 id="first-name"
                 autoComplete="given-name"
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                {...register("desc", { required: true, maxLength: 100 })}
+                required
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
             >
             </textarea>
             <div className="text-red-600">
-                {errors.desc?.type === 'required' && "Description is required"}
-                {errors.desc?.type === 'maxLength' && "Max length should be 100"}
             </div>
 
         </>
