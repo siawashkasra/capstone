@@ -1,7 +1,14 @@
 import Task from "./Task";
 import { Droppable } from "react-beautiful-dnd";
+import { useLayoutEffect, useState } from "react";
 
-const TaskList = ({ tasks, id }) => {
+const TaskList = ({ initialTasks, id }) => {
+  const [tasks, setTasks] = useState(initialTasks);
+
+  useLayoutEffect(() => {
+    setTasks(initialTasks);
+  }, [initialTasks]);
+
   return (
     <Droppable droppableId={id.toString()}>
       {(provided) => (

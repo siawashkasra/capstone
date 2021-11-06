@@ -19,20 +19,13 @@ const reOrder = async (tasks, setStage) => {
       newOrder.push({ id: tasks[index].id, order: index });
     }
   }
-  const status = await persistOrder(newOrder);
-  if (status === 200) {
-    getData(setStage);
-  }
+  // const status = await persistOrder(newOrder);
+  // if (status === 200) {
+  //   getData(setStage);
+  // }
 };
 
-const dragAndDrop = (
-  stage,
-  source,
-  destination,
-  draggableId,
-  setStage,
-  stages
-) => {
+const shift = (stage, source, destination, draggableId, setStage, stages) => {
   let tempTasks = Array.from(stage[0].tasks);
   tempTasks.splice(source.index, 1);
   tempTasks.splice(
@@ -51,7 +44,7 @@ const dragAndDrop = (
   reOrder(tempTasks, setStage);
 };
 
-const shift = async (stage, source, destination, stages, setStage) => {
+const move = async (stage, source, destination, stages, setStage) => {
   const task = stage[0].tasks[source.index];
   const shiftedTask = { ...task, stage: parseInt(destination.droppableId) };
   let newStageState = removeItem(stage, source, stages);
@@ -76,4 +69,4 @@ const shift = async (stage, source, destination, stages, setStage) => {
   }
 };
 
-export { dragAndDrop, shift };
+export { shift, move };

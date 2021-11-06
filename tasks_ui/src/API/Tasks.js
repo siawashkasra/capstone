@@ -42,10 +42,14 @@ const persistShift = async (task) => {
   return res.status;
 };
 
-const createTask = async (newTask) => {
-    await axios.post(TASKS_BASE_URL, newTask, {
+const createTask = async (newTask, setStage) => {
+    const res = await axios.post(TASKS_BASE_URL, newTask, {
     auth: AUTH
   })
+
+  if (res.status === 201) {
+    getData(setStage)
+  }
 }
 
 export { getData, persistOrder, persistShift, createTask };

@@ -1,7 +1,7 @@
 import { Draggable } from "react-beautiful-dnd";
-import coverImage from "../background.jpg";
 import Avatar from "../layouts/Avatar";
 import { BellIcon } from "@heroicons/react/outline";
+import chroma from "chroma-js";
 
 const Task = ({ task, index }) => {
   return (
@@ -11,24 +11,26 @@ const Task = ({ task, index }) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          className="card shadow-2xl rounded-2xl m-1 bg-white p-4 text-purple-700 transform transition-transform"
+          className="card shadow-2xl m-1 bg-white p-4 text-purple-700 transform transition-transform"
         >
           <div className="header">
-            <div className="cover-image">
-              <img className="w-full h-20" src={coverImage} alt="coverImage" />
-              <div className="flex justify-between items-baseline">
+              <div className="flex justify-between">
                 <h5 className="p-2 text-left">{task.title}</h5>
-                {/* <div className={priorities[task.priority]}>{task.priority}</div> */}
+                <Avatar members={[task.assignee]} />
               </div>
               <div className="flex w-28 bg-red-300 p-1 rounded-r-lg">
-                  <span>{task.due_to}</span>
-                  <BellIcon className="w-4" color='red'/>
+                <span>{task.due_to}</span>
+                <BellIcon className="w-4" color="red" />
               </div>
-            </div>
           </div>
-          <div className="body">
-            <Avatar members={[task.assignee]} />
+          <div className="body flex justify-end">
+          <div className="flex flex-col">
+            {task.labels.map((label, index) => (
+              <div className="p-0.5 w-20 m-0.5" key={index} style={{ backgroundColor: chroma(label.color).alpha(0.5).css() }}></div>
+            ))}
           </div>
+          </div>
+          
         </div>
       )}
     </Draggable>
