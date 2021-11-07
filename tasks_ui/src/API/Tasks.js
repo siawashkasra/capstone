@@ -43,7 +43,7 @@ const persistShift = async (task) => {
   return res.status;
 };
 
-const createTask = async (newTask, setStage) => {
+const create = async (newTask, setStage) => {
   const res = await axios.post(TASKS_BASE_URL, newTask, {
     auth: AUTH,
   });
@@ -66,4 +66,14 @@ const update = async (updatedTask, setStage) => {
   }
 };
 
-export { getData, persistOrder, persistShift, createTask, update };
+
+const remove = async (taskId, setStage) => {
+  const res = await axios.delete(TASKS_BASE_URL + taskId + "/", {
+    auth: AUTH,
+  });
+  if (res.status === 204) {
+    getData(setStage);
+  }
+};
+
+export { getData, persistOrder, persistShift, create, update, remove };

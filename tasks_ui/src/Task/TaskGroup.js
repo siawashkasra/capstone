@@ -2,7 +2,7 @@ import TaskList from "./TaskList";
 import { useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import { shift, move } from "../utilities/Utilities";
-import { getData, createTask } from "../API/Tasks";
+import { getData, create } from "../API/Tasks";
 import { PlusIcon } from "@heroicons/react/outline";
 import Modal from "../layouts/Modal";
 import Form from "./CreateForm";
@@ -29,7 +29,7 @@ const TaskGroup = () => {
           : stage
       )
     );
-    createTask(newTask, setStage);
+    create(newTask, setStage);
   };
 
   useEffect(() => {

@@ -1,8 +1,7 @@
 import Task from "./Task";
 import { Droppable } from "react-beautiful-dnd";
 import { useLayoutEffect, useState } from "react";
-import { update } from "../API/Tasks";
-import moment from "moment";
+import { update, remove } from "../API/Tasks";
 
 const TaskList = ({
   setStage,
@@ -24,6 +23,11 @@ const TaskList = ({
     update(updatedTask, setStage);
   };
 
+  const handleDelete = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+    remove(id, setStage);
+  }
+
   return (
     <Droppable droppableId={id.toString()}>
       {(provided) => (
@@ -34,6 +38,7 @@ const TaskList = ({
               task={task}
               index={index}
               handleUpdate={handleUpdate}
+              handleDelete={handleDelete}
               members={members}
               options={options}
             />

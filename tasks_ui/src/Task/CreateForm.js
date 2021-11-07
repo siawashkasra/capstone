@@ -9,6 +9,7 @@ import File from "../layouts/File";
 import MultiSelect from "../layouts/MultiSelect";
 import moment from "moment";
 
+
 const Form = ({ handleCreate, setOpen, members, options, currStage }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -17,7 +18,7 @@ const Form = ({ handleCreate, setOpen, members, options, currStage }) => {
   const [selected, setSelected] = useState(members[0]);
   const [labels, setLabels] = useState([]);
   const [file, setFile] = useState("");
-  
+
   const newID = () => {
     // loop over currStage and get tasks id
     let id = 0;
@@ -31,7 +32,7 @@ const Form = ({ handleCreate, setOpen, members, options, currStage }) => {
       }
     });
     return id;
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
