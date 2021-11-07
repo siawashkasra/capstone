@@ -68,7 +68,6 @@ const MultiSelect = ({ options, labels, setOption }) => {
       styles={customStyles}
       value={labels}
       onChange={setOption}
-      hasValue={false}
     />
   );
 };

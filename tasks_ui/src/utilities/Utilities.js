@@ -19,10 +19,10 @@ const reOrder = async (tasks, setStage) => {
       newOrder.push({ id: tasks[index].id, order: index });
     }
   }
-  // const status = await persistOrder(newOrder);
-  // if (status === 200) {
-  //   getData(setStage);
-  // }
+  const status = await persistOrder(newOrder);
+  if (status === 200) {
+    getData(setStage);
+  }
 };
 
 const shift = (stage, source, destination, draggableId, setStage, stages) => {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 
 const STAGE_BASE_URL = "http://localhost:8000/task-stages/";
 const RE_ORDER_TASKS_URL = "http://localhost:8000/tasks/reorder/";
@@ -43,13 +44,26 @@ const persistShift = async (task) => {
 };
 
 const createTask = async (newTask, setStage) => {
-    const res = await axios.post(TASKS_BASE_URL, newTask, {
-    auth: AUTH
-  })
+  const res = await axios.post(TASKS_BASE_URL, newTask, {
+    auth: AUTH,
+  });
 
   if (res.status === 201) {
-    getData(setStage)
+    getData(setStage);
   }
-}
+};
 
-export { getData, persistOrder, persistShift, createTask };
+const update = async (updatedTask, setStage) => {
+  const res = await axios.put(
+    TASKS_BASE_URL + updatedTask.id + "/",
+    { ...updatedTask, due_to: moment(updatedTask.due_to).format() },
+    {
+      auth: AUTH,
+    }
+  );
+  if (res.status === 200) {
+    getData(setStage);
+  }
+};
+
+export { getData, persistOrder, persistShift, createTask, update };

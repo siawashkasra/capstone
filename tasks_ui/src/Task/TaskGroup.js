@@ -92,6 +92,8 @@ const TaskGroup = () => {
                   initialTasks={stage.tasks}
                   id={stage.id}
                   setStage={setStage}
+                  members={members}
+                  options={options}
                 />
               </div>
             </div>

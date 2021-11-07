@@ -9,42 +9,27 @@ import File from "../layouts/File";
 import MultiSelect from "../layouts/MultiSelect";
 import moment from "moment";
 
-const Form = ({ handleCreate, setOpen, members, options, currStage }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
+const Form = ({ task, handleUpdate, setOpen, members, options }) => {
+  const [title, setTitle] = useState(task.title);
+  const [description, setDescription] = useState(task.desc);
+  const [startDate, setStartDate] = useState(new Date(task.due_to));
   const [openModal, setOpenModal] = useState(false);
-  const [selected, setSelected] = useState(members[0]);
-  const [labels, setLabels] = useState([]);
+  const [selected, setSelected] = useState(task.assignee);
+  const [labels, setLabels] = useState(task.labels);
   const [file, setFile] = useState("");
   
-  const newID = () => {
-    // loop over currStage and get tasks id
-    let id = 0;
-    currStage.tasks.forEach((task) => {
-      if (task.id > id) {
-        id = task.id;
-        id = id + 1;
-        // if id is greater than 0, add 1 to it
-      } else if (task.id === 0) {
-        id = 1;
-      }
-    });
-    return id;
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newTask = {
-      id: newID(),
+    const updatedTask = {
+      id: task.id,
       title: title,
       desc: description,
-      due_to: moment(startDate).format(),
+      due_to: moment(startDate).format("MMM DD, yy"),
       assignee: selected,
       labels: labels,
-      stage: currStage,
+      stage: task.stage,
     };
-    handleCreate(newTask);
+    handleUpdate(updatedTask);
     setOpen(false);
   };
 
@@ -82,9 +67,7 @@ const Form = ({ handleCreate, setOpen, members, options, currStage }) => {
                     </label>
                     <DatePicker
                       selected={startDate}
-                      timeInputLabel="Time:"
-                      dateFormat="MM/dd/yyyy h:mm aa"
-                      showTimeInput
+                      dateFormat="MMM dd, yy"
                       onChange={(date) => setStartDate(date)}
                       placeholderText="Select due date"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -131,7 +114,7 @@ const Form = ({ handleCreate, setOpen, members, options, currStage }) => {
                   type="submit"
                   className="m-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                 >
-                  Save
+                  Update
                 </button>
               </div>
             </div>
