@@ -1,24 +1,28 @@
 import axios from "axios";
 
-const TEAMS_BASE_URL = "http://localhost:8000/teams/";
+const TEAMS_BASE_URL = "http://localhost:8000/api/teams/";
 const AUTH = {
   username: "siawashkasra",
   password: "kasra@123",
 };
+
 const HEADERS = {
   Accept: "application/json",
 };
 
 const getTeamData = async (setTeam) => {
   const response = await axios.get(TEAMS_BASE_URL, {
-    headers: HEADERS,
     auth: AUTH,
   });
   setTeam(response.data);
 };
 
-const createTeam = async (newTeam, setTeam) => {
-  const res = await axios.post(TEAMS_BASE_URL, newTeam, {
+const uploadCover = async (id, cover, setTeam) => {
+  console.log(id, cover);
+
+  const formData = new FormData();
+  formData.append("cover", cover);
+  const res = await axios.patch(TEAMS_BASE_URL + id + "/", formData, {
     auth: AUTH,
   });
   if (res.status === 201) {
@@ -26,4 +30,19 @@ const createTeam = async (newTeam, setTeam) => {
   }
 };
 
-export { getTeamData, createTeam };
+const create = async (data, setTeam) => {
+  const newTeam = {
+    name: data.name,
+    desc: data.desc,
+    members: data.members,
+  };
+
+  const res = await axios.post(TEAMS_BASE_URL, newTeam, {
+    auth: AUTH,
+  });
+  if (res.status === 201) {
+    uploadCover(res.data["id"], data.cover, setTeam);
+  }
+};
+
+export { getTeamData, create };

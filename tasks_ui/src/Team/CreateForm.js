@@ -1,18 +1,32 @@
 import Input from "../layouts/Input";
 import TextArea from "../layouts/TextArea";
-import { useForm } from "react-hook-form";
-import { useRef } from "react";
+import { useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
+import MultiSelect from "../layouts/MultiSelect";
+import File from "../layouts/File";
+import { getCompatibleOptions, generateNewID } from "../utilities/Utilities";
 
-const Form = ({setTeam, createTeam, setOpen }) => {
-  const cancelButtonRef = useRef(null);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+const Form = ({ setOpen, options, handleCreate, teams }) => {
+  const [name, setName] = useState("");
+  const [desc, setDesc] = useState("");
+  const [members, setMembers] = useState([]);
+  const [cover, setCover] = useState([]);
 
-  const onSubmit = (data) => {
-    createTeam(data, setTeam);
+  let ids = []
+  members.forEach((member) => {
+    ids = [...ids, member.id]
+  })
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newTeam = {
+      id: generateNewID(teams),
+      cover,
+      name,
+      desc,
+      members: ids
+    };
+    handleCreate(newTeam);
     setOpen(false);
   };
 
@@ -26,41 +40,50 @@ const Form = ({setTeam, createTeam, setOpen }) => {
 
       <div className="mt-10 sm:mt-0">
         <div className="mt-5 md:mt-0">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="overflow-hidden sm:rounded-md">
+          <form onSubmit={handleSubmit}>
+            <div className="sm:rounded-md">
               <div className="px-4 py-5 bg-white sm:p-6">
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-6">
-                    <Input
-                      label="Team Name"
-                      register={register}
-                      errors={errors}
+                    <label
+                      htmlFor="due-to"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Select members
+                    </label>
+                    <MultiSelect
+                      options={getCompatibleOptions(options)}
+                      values={members}
+                      setValues={setMembers}
                     />
                   </div>
-
+                  <div className="col-span-6">
+                    <Input
+                      type="text"
+                      id="title"
+                      label="Title"
+                      name={name}
+                      setName={setName}
+                    />
+                  </div>
                   <div className="col-span-6">
                     <TextArea
                       label="Description"
-                      register={register}
-                      errors={errors}
+                      desc={desc}
+                      setDesc={setDesc}
                     />
+                  </div>
+                  <div className="col-span-6">
+                    <File setCover={setCover} />
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between px-4 py-3 text-right sm:px-6">
-                <button
-                  type="button"
-                  className="m-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
-                  onClick={() => setOpen(false)}
-                  ref={cancelButtonRef}
-                >
-                  Cancel
-                </button>
+              <div className="flex justify-end px-4 py-3 text-right sm:px-6">
                 <button
                   type="submit"
-                  className="m-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  className="m-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                 >
-                  Create
+                  Save
                 </button>
               </div>
             </div>

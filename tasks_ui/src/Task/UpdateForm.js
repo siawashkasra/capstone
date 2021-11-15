@@ -17,7 +17,7 @@ const Form = ({ task, handleUpdate, setOpen, members, options }) => {
   const [selected, setSelected] = useState(task.assignee);
   const [labels, setLabels] = useState(task.labels);
   const [file, setFile] = useState("");
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedTask = {

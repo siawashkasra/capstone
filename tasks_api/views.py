@@ -1,4 +1,3 @@
-from django.db import connections
 from .models import Label, Member, TaskStage, Team, Task
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
@@ -9,7 +8,6 @@ from rest_framework.response import Response
 
 
 # Create your views here.
-
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -36,6 +34,13 @@ class MemberViewSet(viewsets.ModelViewSet):
     serializer_class = MemberSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    @action(methods=['GET'], detail=True, permission_classes=[permissions.IsAuthenticated])
+    def getMembersByTeam(self, request, pk):
+        # serialize the data
+        serializer = MemberSerializer(
+            Member.objects.filter(team=pk), many=True)
+        return Response(serializer.data)
+
 
 class TeamViewSet(viewsets.ModelViewSet):
     """
@@ -47,6 +52,20 @@ class TeamViewSet(viewsets.ModelViewSet):
 
     serializer_class = TeamSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    # Override create method
+    def create(self, request, *args, **kwargs):
+        serializer = TeamSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+    def partial_update(self, request, pk=None):
+        team = Team.objects.filter(id=pk).get()
+        team.cover = request.data.get('cover')
+        team.save()
+        return Response(data={'status': 'stage has been updated!'}, status=201)
 
 
 class TaskViewSet(viewsets.ModelViewSet):

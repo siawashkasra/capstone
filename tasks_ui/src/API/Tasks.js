@@ -1,9 +1,9 @@
 import axios from "axios";
 import moment from "moment";
 
-const STAGE_BASE_URL = "http://localhost:8000/task-stages/";
-const RE_ORDER_TASKS_URL = "http://localhost:8000/tasks/reorder/";
-const TASKS_BASE_URL = "http://localhost:8000/tasks/";
+const STAGE_BASE_URL = "http://localhost:8000/api/task-stages/";
+const RE_ORDER_TASKS_URL = "http://localhost:8000/api/tasks/reorder/";
+const TASKS_BASE_URL = "http://localhost:8000/api/tasks/";
 
 const AUTH = {
   username: "siawashkasra",

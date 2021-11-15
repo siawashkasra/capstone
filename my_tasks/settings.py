@@ -29,7 +29,7 @@ DEBUG = True
 
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
-'http://localhost:3000',  # for localhost (REACT Default)
+    'http://localhost:3000',  # for localhost (REACT Default)
 )
 
 
@@ -132,6 +132,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -149,7 +152,7 @@ REST_FRAMEWORK = {
     ],
 
 
-    # 'DEFAULT_AUTHENTICATION_CLASSES': ( 
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
     #     'rest_framework.authentication.SessionAuthentication',
     # ),
     'DATETIME_FORMAT': '%b %d, %y',

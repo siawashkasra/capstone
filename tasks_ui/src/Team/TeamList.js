@@ -2,43 +2,48 @@ import { useState, useEffect } from "react";
 import Layout from "../layouts/Layout";
 import Team from "./Team";
 import Modal from "../layouts/Modal";
-import { getTeamData, createTeam } from "../API/Teams";
+import { getTeamData } from "../API/Teams";
 import Form from "./CreateForm";
+import { fetchMembers } from "../API/Members";
+import { create } from "../API/Teams"
 
 const TeamList = () => {
-  const [state, setstate] = useState(false);
+  const [open, setOpen] = useState(false);
   const [teams, setTeam] = useState([]);
+  const [options, setOptions] = useState([]);
 
-  const setOpen = () => {
-    setstate(!state);
-  };
+  const handleCreate = (newTeam) => {
+    const currTeam = Array.from(teams)
+    currTeam.unshift(newTeam)
+    setTeam(currTeam);
+    create(newTeam, setTeam);
+  }
 
-  const createTeamClosure = (newTeam) => {
-    createTeam(newTeam, setTeam);
-  };
+  useEffect(() => {
+    fetchMembers(setOptions);
+  }, []);
 
   useEffect(() => {
     getTeamData(setTeam);
   }, []);
 
   return (
-    <Layout open={state} setOpen={setOpen} title="Teams">
-      <div className="grid grid-cols-3 gap-4 bg-gray-100">
-        {teams.map((team) => (
-          <Team key={team.id} team={team} />
+    <Layout title="Teams" setOpen={setOpen}>
+      <div className="grid grid-cols-3 gap-4">
+        {teams.map((team, index) => (
+          <Team key={index} team={team} />
         ))}
       </div>
       <Modal
         title="Create a Team"
-        open={state}
+        open={open}
         setOpen={setOpen}
-        setTeam={setTeam}
       >
         <Form
-          setTeam={setTeam}
-          createTeam={createTeam}
           setOpen={setOpen}
-          createTeamClosure={createTeamClosure}
+          options={options}
+          handleCreate={handleCreate}
+          teams={teams}
         />
       </Modal>
     </Layout>

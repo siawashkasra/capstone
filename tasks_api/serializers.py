@@ -4,7 +4,6 @@ from .models import Label, Task, TaskStage, Team, Member
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 
-
 # Class UserSerializer.
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,11 +26,11 @@ class MemberSerializer(serializers.ModelSerializer):
 
 
 # Class TeamSerializer.
-class TeamSerializer(serializers.ModelSerializer):
+class TeamSerializer(WritableNestedModelSerializer):
+    # members = MemberSerializer(many=True)
     class Meta:
         model = Team
-        fields = ['id', 'name', 'desc', 'members']
-        depth = 1
+        fields = ['id', 'cover', 'name', 'desc', 'members']
 
 
 # Class TaskStageSerializer.
@@ -57,19 +56,9 @@ class TaskSerializer(WritableNestedModelSerializer):
     assignee = MemberSerializer(many=False)
     stage = TaskStageSerializer(many=False)
     labels = LabelSerializer(many=True)
-    
 
     class Meta:
         model = Task
         fields = ['id', 'title', 'desc', 'due_to',
                   'assignee', 'stage', 'order', 'labels']
         depth = 1
-
-    # def create(self, validated_data):
-    #         # assignee_data = validated_data.pop('assignee')
-    #         # stage_data = validated_data.pop('stage')
-    #         # labels = validated_data.pop('labels')
-    #         print(validated_data)
-    #         # task = Task.objects.create(**validated_data)
-    #         # Task.objects.create(task=task, **assignee_data, **stage_data, **labels)
-    #         # return task

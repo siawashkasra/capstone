@@ -8,7 +8,7 @@ import Modal from "../layouts/Modal";
 import File from "../layouts/File";
 import MultiSelect from "../layouts/MultiSelect";
 import moment from "moment";
-
+import { generateNewID } from "../utilities/Utilities";
 
 const Form = ({ handleCreate, setOpen, members, options, currStage }) => {
   const [title, setTitle] = useState("");
@@ -19,25 +19,10 @@ const Form = ({ handleCreate, setOpen, members, options, currStage }) => {
   const [labels, setLabels] = useState([]);
   const [file, setFile] = useState("");
 
-  const newID = () => {
-    // loop over currStage and get tasks id
-    let id = 0;
-    currStage.tasks.forEach((task) => {
-      if (task.id > id) {
-        id = task.id;
-        id = id + 1;
-        // if id is greater than 0, add 1 to it
-      } else if (task.id === 0) {
-        id = 1;
-      }
-    });
-    return id;
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTask = {
-      id: newID(),
+      id: generateNewID(currStage.tasks),
       title: title,
       desc: description,
       due_to: moment(startDate).format(),

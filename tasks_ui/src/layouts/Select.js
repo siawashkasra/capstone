@@ -3,7 +3,6 @@ import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -22,7 +21,9 @@ const Select = ({ members, selected, setSelected }) => {
               alt=""
               className="flex-shrink-0 h-6 w-6 rounded-full"
             />
-            <span className="ml-3 block truncate">{selected.first_name} {selected.last_name}</span>
+            <span className="ml-3 block truncate">
+              {selected.first_name} {selected.last_name}
+            </span>
           </span>
           <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
             <SelectorIcon

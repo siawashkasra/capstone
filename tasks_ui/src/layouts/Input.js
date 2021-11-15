@@ -1,4 +1,4 @@
-const Input = ({ type, name, id, label, title, setTitle }) => {
+const Input = ({ type, id, label, name, setName }) => {
   return (
     <>
       <div>
@@ -15,11 +15,10 @@ const Input = ({ type, name, id, label, title, setTitle }) => {
           autoComplete="given-name"
           className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
           required
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
-        <div className="text-red-600">
-        </div>
+        <div className="text-red-600"></div>
       </div>
     </>
   );

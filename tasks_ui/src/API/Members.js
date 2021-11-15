@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_MEMBERS_URL = 'http://localhost:8000/members/'
+const BASE_MEMBERS_URL = 'http://localhost:8000/api/members/'
+const MEMBERS_BY_TEAM = `/getMembersByTeam/`
 
 const AUTH = {
     username: "siawashkasra",
@@ -24,5 +25,14 @@ const fetchMembers = async (setMembers) => {
     }
 }
 
+const fetchMember = async (id, setMembers) => {
+    const res = await axios.get(BASE_MEMBERS_URL + id + MEMBERS_BY_TEAM, {
+        auth: AUTH,
+        headers: HEADERS
+    })
+    if (res.status === 200) {
+        setMembers(res.data)
+    }
+}
 
-export {fetchMembers}
+export {fetchMembers, fetchMember}

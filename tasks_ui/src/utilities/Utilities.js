@@ -1,4 +1,5 @@
 import { persistShift, persistOrder, getData } from "../API/Tasks";
+import Person from "../layouts/Person";
 
 const removeItem = (stage, source, stages) => {
   const sourceTasks = Array.from(stage[0].tasks);
@@ -69,4 +70,56 @@ const move = async (stage, source, destination, stages, setStage) => {
   }
 };
 
-export { shift, move };
+// generate random color using chroma.js
+const getRandomColor = () => {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
+const getCompatibleOptions = (options) => {
+  let compatibleOptions = [];
+  compatibleOptions = options.map((option) => {
+    return {
+      id: option.id,
+      value: option.id,
+      label: <Person person={option} />,
+      color: getRandomColor(),
+    };
+  });
+  return compatibleOptions;
+};
+
+
+const generateNewID = (list) => {
+  // loop over the list and get the id
+  let id = 0;
+  list.forEach((task) => {
+    if (task.id > id) {
+      id = task.id;
+      id = id + 1;
+      // if id is greater than 0, add 1 to it
+    } else if (task.id === 0) {
+      id = 1;
+    }
+  });
+  return id;
+};
+
+const extractMembers = (members, options) => {
+  // filter options to get only the members matching members values
+  // loop over the members and get the value
+  let extractedMembers = [];
+  members.forEach((member) => {
+    const memberOption = options.find((option) => option.id === member.id);
+    if (memberOption) {
+      extractedMembers.push(memberOption);
+    }
+  });
+  return extractedMembers;
+};
+
+export { shift, move, getCompatibleOptions, generateNewID, extractMembers };

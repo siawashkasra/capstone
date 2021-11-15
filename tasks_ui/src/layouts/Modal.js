@@ -1,15 +1,18 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useRef } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useRef } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 
-
-const Modal = ({ children, title, open, setOpen })=> {
-
-  const cancelButtonRef = useRef(null)
+const Modal = ({ children, title, open, setOpen }) => {
+  const cancelButtonRef = useRef(null);
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setOpen}>
+      <Dialog
+        as="div"
+        className="fixed z-10 inset-0 overflow-y-auto"
+        initialFocus={cancelButtonRef}
+        onClose={setOpen}
+      >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -24,7 +27,10 @@ const Modal = ({ children, title, open, setOpen })=> {
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
-          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+          <span
+            className="hidden sm:inline-block sm:align-middle sm:h-screen"
+            aria-hidden="true"
+          >
             &#8203;
           </span>
           <Transition.Child
@@ -40,10 +46,13 @@ const Modal = ({ children, title, open, setOpen })=> {
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                      { title }
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg leading-6 font-medium text-gray-900"
+                    >
+                      {title}
                     </Dialog.Title>
-                    { children }
+                    {children}
                   </div>
                 </div>
               </div>
@@ -52,8 +61,7 @@ const Modal = ({ children, title, open, setOpen })=> {
         </div>
       </Dialog>
     </Transition.Root>
-  )
-}
+  );
+};
 
-
-export default Modal
+export default Modal;

@@ -29,9 +29,10 @@ class Team(models.Model):
     class Meta:
         ordering = ('-created_at', )
 
+    cover = models.ImageField(upload_to='teams', null=True, blank=True)
     name = models.CharField("Name", null=False, max_length=256)
     desc = models.TextField("Description", null=False)
-    members = models.ManyToManyField(Member, related_name='teams_members')
+    members = models.ManyToManyField(Member, related_name='team')
     created_at = models.DateTimeField(
         "Created At", auto_now_add=True, null=True)
     updated_at = models.DateTimeField("Update At", auto_now=True, null=True)
@@ -58,7 +59,7 @@ class TaskStage(models.Model):
     )
 
     stage = models.CharField("Stages", choices=STAGES,
-                             max_length=20, null=False, default="draft" )
+                             max_length=20, null=False, default="draft")
     order = models.IntegerField("Order", null=True)
 
     def __str__(self):
@@ -77,7 +78,6 @@ class Label(models.Model):
     value = models.CharField("Value", max_length=256, null=False)
     label = models.CharField("Label", max_length=256, null=False)
     color = models.CharField("Color", max_length=256, null=False)
-
 
     def __str__(self):
         return "Label< " + self.label + "> " + " <Color: " + self.color + ">"

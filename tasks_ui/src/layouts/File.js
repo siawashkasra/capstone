@@ -1,6 +1,6 @@
-const File = ({ file, setFile }) => {
+const File = ({ setCover }) => {
   return (
-    <div className="file w-64">
+    <div className="file">
       <label className="block text-sm font-medium text-gray-700">
         Cover photo
       </label>
@@ -22,17 +22,16 @@ const File = ({ file, setFile }) => {
           </svg>
           <div className="flex text-sm text-gray-600">
             <label
-              htmlFor="file-upload"
+              htmlFor="cover"
               className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none"
             >
               <span>Upload a file</span>
               <input
-                id="file-upload"
-                name="file-upload"
+                id="cover"
+                name="cover"
                 type="file"
                 className="sr-only"
-                value={file}
-                onChange={setFile}
+                onChange={(e) => setCover(e.target.files[0])}
               />
             </label>
             <p className="pl-1">or drag and drop</p>

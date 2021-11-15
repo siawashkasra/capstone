@@ -7,7 +7,14 @@ import { useState } from "react";
 import Form from "./UpdateForm";
 import { TrashIcon } from "@heroicons/react/solid";
 
-const Task = ({ task, index, handleUpdate, handleDelete, members, options }) => {
+const Task = ({
+  task,
+  index,
+  handleUpdate,
+  handleDelete,
+  members,
+  options,
+}) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = (e) => {
@@ -54,7 +61,10 @@ const Task = ({ task, index, handleUpdate, handleDelete, members, options }) => 
                 </div>
               </div>
               <div className="flex justify-end">
-                <TrashIcon onClick={() => handleDelete(task.id)} className="w-8 text-yellow-200 hover:text-red-700 transform transition-transform hover:scale-150" />
+                <TrashIcon
+                  onClick={() => handleDelete(task.id)}
+                  className="w-8 text-yellow-200 hover:text-red-700 transform transition-transform hover:scale-150"
+                />
               </div>
             </div>
           </div>

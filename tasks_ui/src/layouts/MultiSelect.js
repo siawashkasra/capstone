@@ -2,9 +2,8 @@ import makeAnimated from "react-select/animated";
 import chroma from "chroma-js";
 import Select from "react-select";
 
-
 const customStyles = {
-  control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  control: (styles) => ({ ...styles, backgroundColor: "white" }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     const color = chroma(data.color);
     return {
@@ -17,16 +16,16 @@ const customStyles = {
         ? color.alpha(0.1).css()
         : undefined,
       color: isDisabled
-        ? '#ccc'
+        ? "#ccc"
         : isSelected
-        ? chroma.contrast(color, 'black') > 2
-          ? 'black'
-          : 'black'
+        ? chroma.contrast(color, "black") > 2
+          ? "black"
+          : "black"
         : data.color,
-      cursor: isDisabled ? 'not-allowed' : 'default',
+      cursor: isDisabled ? "not-allowed" : "default",
 
-      ':active': {
-        ...styles[':active'],
+      ":active": {
+        ...styles[":active"],
         backgroundColor: !isDisabled
           ? isSelected
             ? data.color
@@ -44,30 +43,32 @@ const customStyles = {
   },
   multiValueLabel: (styles, { data }) => ({
     ...styles,
-    color: 'dark gray',
+    color: "dark gray",
   }),
   multiValueRemove: (styles, { data }) => ({
     ...styles,
     color: data.color,
-    ':hover': {
+    ":hover": {
       backgroundColor: data.color,
-      color: 'magenta',
+      color: "magenta",
     },
   }),
 };
 
 const animatedComponents = makeAnimated();
-const MultiSelect = ({ options, labels, setOption }) => {
+const MultiSelect = (props) => {
+  const { options, values, setValues } = props;
 
   return (
     <Select
-      closeMenuOnSelect={true}
+      closeMenuOnSelect={false}
       components={animatedComponents}
       isMulti
       options={options}
       styles={customStyles}
-      value={labels}
-      onChange={setOption}
+      value={values}
+      onChange={setValues}
+      maxMenuHeight={300}
     />
   );
 };

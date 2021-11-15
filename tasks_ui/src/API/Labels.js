@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const LABELS_BASE_URL = "http://localhost:8000/labels/"
+const LABELS_BASE_URL = "http://localhost:8000/api/labels/"
 
 const AUTH = {
     username: "siawashkasra",
