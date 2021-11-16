@@ -10,6 +10,18 @@ const HEADERS = {
   Accept: "application/json",
 };
 
+// Get team by ID
+const getTeam = async (id, setTeam) => {
+  const response = await axios.get(`${TEAMS_BASE_URL}${id}/`, {
+    auth: AUTH,
+    headers: HEADERS,
+  });
+  console.log(response)
+  if(response.status === 200) {
+  setTeam(response.data);
+  }
+};
+
 const getTeamData = async (setTeam) => {
   const response = await axios.get(TEAMS_BASE_URL, {
     auth: AUTH,
@@ -45,4 +57,4 @@ const create = async (data, setTeam) => {
   }
 };
 
-export { getTeamData, create };
+export { getTeamData, getTeam, create };

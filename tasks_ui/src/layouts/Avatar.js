@@ -18,7 +18,7 @@ const Avatar = ({ members }) => {
           />
         </div>
       ))}
-      {members.length > 5 ? (
+      {members.length > 4 ? (
         <div className="text-green-600">+{members.length - 4}</div>
       ) : (
         ""

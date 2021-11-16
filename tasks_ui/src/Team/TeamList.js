@@ -28,7 +28,7 @@ const TeamList = () => {
   }, []);
 
   return (
-    <Layout title="Teams" setOpen={setOpen}>
+    <Layout>
       <div className="grid grid-cols-3 gap-4">
         {teams.map((team, index) => (
           <Team key={index} team={team} />

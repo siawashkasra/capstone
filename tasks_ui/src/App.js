@@ -6,6 +6,7 @@ import Calendar from "./Calendar";
 import Reports from "./Reports";
 import TeamList from "./Team/TeamList";
 import Landing from "./Landing";
+import TeamDetails from "./TeamDetails";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Switch>
         <Route exact path="/dashboard" render={() => <Dashboard />} />
         <Route exact path="/teams" render={() => <TeamList />} />
+        <Route exact path="/teams/:id" render={(routeProps) => <TeamDetails {...routeProps} />} />
         <Route exact path="/tasks" render={() => <Tasks />} />
         <Route exact path="/calendar" render={() => <Calendar />} />
         <Route exact path="/reports" render={() => <Reports />} />

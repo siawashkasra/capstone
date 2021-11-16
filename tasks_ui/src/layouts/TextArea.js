@@ -1,4 +1,4 @@
-const TextArea = ({ label, desc, setDesc }) => {
+const TextArea = ({ label, description, setDescription }) => {
   return (
     <>
       <label
@@ -14,9 +14,11 @@ const TextArea = ({ label, desc, setDesc }) => {
         autoComplete="given-name"
         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
         required
-        value={desc}
-        onChange={(e) => setDesc(e.target.value)}
-      ></textarea>
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      >
+        { description }
+      </textarea>
       <div className="text-red-600"></div>
     </>
   );
