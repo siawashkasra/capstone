@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const user = {
   name: "Tom Cook",
@@ -10,11 +10,11 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Dashboard", href: "/dashboard", current: true },
-  { name: "Team", href: "/teams", current: false },
-  { name: "Tasks", href: "/tasks", current: false },
-  { name: "Calendar", href: "/calendar", current: false },
-  { name: "Reports", href: "/reports", current: false },
+  { name: "Dashboard", href: "/dashboard" },
+  { name: "Team", href: "/teams" },
+  { name: "Tasks", href: "/tasks" },
+  { name: "Calendar", href: "/calendar" },
+  { name: "Reports", href: "/reports" },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },
@@ -35,31 +35,30 @@ const Nav = () => {
             <div className="flex items-center justify-between h-16">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Link to="" href="#" className={classNames()}>
+                  <NavLink to="" href="#" activeClassName="active">
                     <img
                       className="h-8 w-8"
                       src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
                       alt="Workflow"
                     />
-                  </Link>
+                  </NavLink>
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
                     {navigation.map((item) => (
-                      <Link
+                      <NavLink
                         to={item.href}
                         key={item.name}
                         href="#"
-                        className={classNames(
-                          item.current
-                            ? "bg-purple-100 text-purple"
-                            : "text-gray-300 hover:bg-purple-100 hover:text-purple-900",
-                          "px-3 py-2 rounded-md text-sm font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
+                        className={(isActive) =>
+                          isActive
+                            ? "bg-purple-100 text-purple px-3 py-2 rounded-md text-sm font-medium"
+                            : "text-gray-300 hover:bg-purple-100 hover:text-purple-900 px-3 py-2 rounded-md text-sm font-medium"
+                        }
+                        aria-current="page"
                       >
                         {item.name}
-                      </Link>
+                      </NavLink>
                     ))}
                   </div>
                 </div>

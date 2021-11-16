@@ -78,7 +78,7 @@ const TaskGroup = () => {
         <div className="flex justify-between">
           {stages.map((stage, index) => (
             <div key={index} className="m-2 shado w-full">
-              <div className="flex justify-between shadow-lg stage-header p-2 bg-indigo-600 text-white text-left rounded-md">
+              <div className="flex justify-between shadow-lg stage-header p-2 bg-black text-white text-left rounded-md">
                 <h5 className="">{stage.stage}</h5>
                 <span className="p-1 bg-gray-900 rounded-lg transform hover:scale-150 transition-transform hover:rotate-45 shadow-lg">
                   <PlusIcon
