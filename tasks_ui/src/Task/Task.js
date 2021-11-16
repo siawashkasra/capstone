@@ -6,6 +6,7 @@ import Modal from "../layouts/Modal";
 import { useState } from "react";
 import Form from "./UpdateForm";
 import { TrashIcon } from "@heroicons/react/solid";
+import moment from "moment";
 
 const Task = ({
   task,
@@ -43,7 +44,7 @@ const Task = ({
                   <Avatar members={[task.assignee]} />
                 </div>
                 <div className="flex w-32 bg-red-300 p-1 rounded-r-lg">
-                  <span>{task.due_to}</span>
+                  <span>{moment(task.due_to).format('ll')}</span>
                   <BellIcon className="w-4" color="red" />
                 </div>
               </div>

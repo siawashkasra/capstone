@@ -1,5 +1,4 @@
 import axios from "axios";
-import moment from "moment";
 
 const STAGE_BASE_URL = "http://localhost:8000/api/task-stages/";
 const RE_ORDER_TASKS_URL = "http://localhost:8000/api/tasks/reorder/";
@@ -56,7 +55,7 @@ const create = async (newTask, setStage) => {
 const update = async (updatedTask, setStage) => {
   const res = await axios.put(
     TASKS_BASE_URL + updatedTask.id + "/",
-    { ...updatedTask, due_to: moment(updatedTask.due_to).format() },
+    updatedTask,
     {
       auth: AUTH,
     }
@@ -65,7 +64,6 @@ const update = async (updatedTask, setStage) => {
     getData(setStage);
   }
 };
-
 
 const remove = async (taskId, setStage) => {
   const res = await axios.delete(TASKS_BASE_URL + taskId + "/", {

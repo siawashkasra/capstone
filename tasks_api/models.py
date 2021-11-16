@@ -94,12 +94,13 @@ class Task(models.Model):
     created_at = models.DateTimeField(
         "Created At", null=False, auto_now_add=True,)
     updated_at = models.DateTimeField("Updated At", null=False, auto_now=True)
-    due_to = models.DateTimeField("Due to", null=True)
+    due_to = models.DateField("Due to", null=True)
     assignee = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True)
     stage = models.ForeignKey(
         TaskStage, related_name="tasks", on_delete=models.DO_NOTHING, null=True)
     order = models.IntegerField("order", null=True)
     labels = models.ManyToManyField(Label, related_name='labels')
+    create_uid = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.title

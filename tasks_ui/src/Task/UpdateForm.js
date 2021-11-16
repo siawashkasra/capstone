@@ -7,7 +7,8 @@ import Select from "../layouts/Select";
 import Modal from "../layouts/Modal";
 import File from "../layouts/File";
 import MultiSelect from "../layouts/MultiSelect";
-import moment from "moment";
+import { castDate } from "../utilities/Utilities";
+
 
 const Form = ({ task, handleUpdate, setOpen, members, options }) => {
   const [title, setTitle] = useState(task.title);
@@ -18,13 +19,14 @@ const Form = ({ task, handleUpdate, setOpen, members, options }) => {
   const [labels, setLabels] = useState(task.labels);
   const [file, setFile] = useState("");
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedTask = {
       id: task.id,
       title: title,
       desc: description,
-      due_to: moment(startDate).format("MMM DD, yy"),
+      due_to: castDate(startDate),
       assignee: selected,
       labels: labels,
       stage: task.stage,
@@ -85,8 +87,8 @@ const Form = ({ task, handleUpdate, setOpen, members, options }) => {
                   <div className="col-span-6">
                     <MultiSelect
                       options={options}
-                      labels={labels}
-                      setOption={setLabels}
+                      values={labels}
+                      setValues={setLabels}
                     />
                   </div>
                   <div className="col-span-6">

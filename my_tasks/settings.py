@@ -155,5 +155,5 @@ REST_FRAMEWORK = {
     # 'DEFAULT_AUTHENTICATION_CLASSES': (
     #     'rest_framework.authentication.SessionAuthentication',
     # ),
-    'DATETIME_FORMAT': '%b %d, %y',
+    # 'DATETIME_FORMAT': '%b %d, %y',
 }

@@ -1,5 +1,6 @@
 import { persistShift, persistOrder, getData } from "../API/Tasks";
 import Person from "../layouts/Person";
+import moment from "moment";
 
 const removeItem = (stage, source, stages) => {
   const sourceTasks = Array.from(stage[0].tasks);
@@ -122,4 +123,8 @@ const extractMembers = (members, options) => {
   return extractedMembers;
 };
 
-export { shift, move, getCompatibleOptions, generateNewID, extractMembers };
+const castDate = (date) => {
+  return moment(date).format("YYYY-MM-DD");
+};
+
+export { shift, move, getCompatibleOptions, generateNewID, extractMembers, castDate };
