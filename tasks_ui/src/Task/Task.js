@@ -30,13 +30,15 @@ const Task = ({
     <>
       <Draggable draggableId={task.id.toString()} index={index} key={index}>
         {(provided) => (
-          <div>
+          <div
+            className={task.stage.stage === "completed" ? "line-through" : ""}
+          >
             <div
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
               onDoubleClick={handleClick}
-              className="card shadow-2xl m-1 bg-white px-4 pt-4 pb-1 text-purple-700 transform transition-transform"
+              className="shadow-2xl m-1 bg-white px-4 pt-4 pb-1 text-purple-700 transform transition-transform"
             >
               <div className="header">
                 <div className="flex justify-between">
@@ -44,7 +46,7 @@ const Task = ({
                   <Avatar members={[task.assignee]} />
                 </div>
                 <div className="flex w-32 bg-red-300 p-1 rounded-r-lg">
-                  <span>{moment(task.due_to).format('ll')}</span>
+                  <span>{moment(task.due_to).format("ll")}</span>
                   <BellIcon className="w-4" color="red" />
                 </div>
               </div>
