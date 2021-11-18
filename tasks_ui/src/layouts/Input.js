@@ -1,4 +1,4 @@
-const Input = ({ type, id, label, title, setTitle }) => {
+const Input = ({ type, id, label, title, setTitle, readOnly=false }) => {
   return (
     <>
       <div>
@@ -17,6 +17,7 @@ const Input = ({ type, id, label, title, setTitle }) => {
           required
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          readOnly={readOnly}
         />
         <div className="text-red-600"></div>
       </div>

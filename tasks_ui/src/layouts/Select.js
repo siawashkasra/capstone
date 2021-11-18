@@ -7,7 +7,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Select = ({ members, selected, setSelected }) => {
+const Select = ({ members, selected, setSelected, readonly=false }) => {
   return (
     <Listbox value={selected} onChange={setSelected}>
       <Listbox.Label className="block text-sm font-medium text-gray-700">
@@ -42,6 +42,7 @@ const Select = ({ members, selected, setSelected }) => {
           <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
             {members.map((person) => (
               <Listbox.Option
+                aria-readonly={readonly}
                 aria-required={person.id === selected.id}
                 key={person.id}
                 className={({ active }) =>

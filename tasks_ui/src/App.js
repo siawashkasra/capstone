@@ -2,11 +2,12 @@ import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Tasks from "./Task/Tasks";
-import Calendar from "./Calendar";
 import Reports from "./Reports";
 import TeamList from "./Team/TeamList";
 import Landing from "./Landing";
 import TeamDetails from "./TeamDetails";
+import Calendar from "./Calendar";
+
 
 function App() {
   return (

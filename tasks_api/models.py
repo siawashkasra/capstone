@@ -107,3 +107,13 @@ class Task(models.Model):
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
+
+    # override save method to update the order of the task.
+    def save(self, *args, **kwargs):
+        if self.order is None:
+            try:
+                last_task = Task.objects.latest('order')
+                self.order = last_task.order + 1
+            except Task.DoesNotExist:
+                self.order = 1
+        super(Task, self).save(*args, **kwargs)

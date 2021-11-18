@@ -16,9 +16,8 @@ const getTeam = async (id, setTeam) => {
     auth: AUTH,
     headers: HEADERS,
   });
-  console.log(response)
-  if(response.status === 200) {
-  setTeam(response.data);
+  if (response.status === 200) {
+    setTeam(response.data);
   }
 };
 
@@ -30,8 +29,6 @@ const getTeamData = async (setTeam) => {
 };
 
 const uploadCover = async (id, cover, setTeam) => {
-  console.log(id, cover);
-
   const formData = new FormData();
   formData.append("cover", cover);
   const res = await axios.patch(TEAMS_BASE_URL + id + "/", formData, {

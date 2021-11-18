@@ -10,10 +10,8 @@ const TeamDetails = (props) => {
   const id = props.match.params.id;
   const [team, setTeam] = useState({});
   const [members, setMembers] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     getTeam(id, setTeam);
   }, [id]);
 
@@ -25,8 +23,8 @@ const TeamDetails = (props) => {
     <Layout>
       <Header title="Team" entity={team} />
       <div className="team-details">
-        {members.map((member) => (
-          <Member member={member} />
+        {members.map((member, index) => (
+          <Member key={index} member={member} />
         ))}
       </div>
     </Layout>

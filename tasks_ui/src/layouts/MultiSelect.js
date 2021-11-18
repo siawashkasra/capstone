@@ -57,7 +57,7 @@ const customStyles = {
 
 const animatedComponents = makeAnimated();
 const MultiSelect = (props) => {
-  const { options, values, setValues } = props;
+  const { options, values, setValues, readOnly=false } = props;
 
   return (
     <Select
@@ -69,6 +69,7 @@ const MultiSelect = (props) => {
       value={values}
       onChange={setValues}
       maxMenuHeight={300}
+      isDisabled={readOnly}
     />
   );
 };

@@ -1,4 +1,4 @@
-const TextArea = ({ label, description, setDescription }) => {
+const TextArea = ({ label, description, setDescription, readOnly=false }) => {
   return (
     <>
       <label
@@ -16,6 +16,7 @@ const TextArea = ({ label, description, setDescription }) => {
         required
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        readOnly={readOnly}
       >
         { description }
       </textarea>

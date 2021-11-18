@@ -13,6 +13,22 @@ const HEADERS = {
   Accept: "application/json",
 };
 
+const getTasks = async (setTasks) => {
+  const response = await axios.get(TASKS_BASE_URL, {
+    headers: HEADERS,
+    auth: AUTH,
+  });
+  setTasks(response.data);
+};
+
+const getTask = async (taskId, setTask) => {
+  const response = await axios.get(`${TASKS_BASE_URL}${taskId}/`, {
+    headers: HEADERS,
+    auth: AUTH,
+  });
+  setTask(response.data);
+};
+
 const getData = async (setStage) => {
   const response = await axios.get(STAGE_BASE_URL, {
     headers: HEADERS,
@@ -74,4 +90,4 @@ const remove = async (taskId, setStage) => {
   }
 };
 
-export { getData, persistOrder, persistShift, create, update, remove };
+export { getTasks, getTask, getData, persistOrder, persistShift, create, update, remove };
