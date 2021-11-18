@@ -59,6 +59,6 @@ class TaskSerializer(WritableNestedModelSerializer):
 
     class Meta:
         model = Task
-        fields = ['id', 'title', 'desc', 'due_to',
+        fields = ['id', 'title', 'desc', 'start_date', 'due_to',
                   'assignee', 'stage', 'order', 'labels']
         depth = 1

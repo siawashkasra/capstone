@@ -7,13 +7,13 @@ import Select from "../layouts/Select";
 import Modal from "../layouts/Modal";
 import File from "../layouts/File";
 import MultiSelect from "../layouts/MultiSelect";
-import moment from "moment";
 import { generateNewID, castDate } from "../utilities/Utilities";
 
 const Form = ({ handleCreate, setOpen, members, options, currStage }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState(new Date());
+  const [dueDate, setDueDate] = useState(new Date());
   const [openModal, setOpenModal] = useState(false);
   const [selected, setSelected] = useState(members[0]);
   const [labels, setLabels] = useState([]);
@@ -25,7 +25,8 @@ const Form = ({ handleCreate, setOpen, members, options, currStage }) => {
       id: generateNewID(currStage.tasks),
       title: title,
       desc: description,
-      due_to: castDate(startDate),
+      start_date: castDate(startDate),
+      due_to: castDate(dueDate),
       assignee: selected,
       labels: labels,
       stage: currStage,
@@ -64,13 +65,31 @@ const Form = ({ handleCreate, setOpen, members, options, currStage }) => {
                       htmlFor="due-to"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Due to
+                      Start Date
                     </label>
                     <DatePicker
                       selected={startDate}
                       timeInputLabel="Time:"
                       dateFormat="MMM dd, yy"
                       onChange={(date) => setStartDate(date)}
+                      placeholderText="Select due date"
+                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      required
+                    />
+                  </div>
+
+                  <div className="col-span-6">
+                    <label
+                      htmlFor="due-to"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Due to
+                    </label>
+                    <DatePicker
+                      selected={dueDate}
+                      timeInputLabel="Time:"
+                      dateFormat="MMM dd, yy"
+                      onChange={(date) => setDueDate(date)}
                       placeholderText="Select due date"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       required

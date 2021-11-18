@@ -13,7 +13,8 @@ import { castDate } from "../utilities/Utilities";
 const Form = ({ task, handleUpdate, setOpen, members, options }) => {
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.desc);
-  const [startDate, setStartDate] = useState(new Date(task.due_to));
+  const [startDate, setStartDate] = useState(new Date(task.start_date));
+  const [dueDate, setDueDate] = useState(new Date(task.due_to));
   const [openModal, setOpenModal] = useState(false);
   const [selected, setSelected] = useState(task.assignee);
   const [labels, setLabels] = useState(task.labels);
@@ -26,7 +27,7 @@ const Form = ({ task, handleUpdate, setOpen, members, options }) => {
       id: task.id,
       title: title,
       desc: description,
-      due_to: castDate(startDate),
+      due_to: castDate(dueDate),
       assignee: selected,
       labels: labels,
       stage: task.stage,
@@ -65,12 +66,29 @@ const Form = ({ task, handleUpdate, setOpen, members, options }) => {
                       htmlFor="due-to"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Due to
+                      Start Date
                     </label>
                     <DatePicker
                       selected={startDate}
                       dateFormat="MMM dd, yy"
                       onChange={(date) => setStartDate(date)}
+                      placeholderText="Select due date"
+                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      required
+                    />
+                  </div>
+
+                  <div className="col-span-6">
+                    <label
+                      htmlFor="due-to"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Due to
+                    </label>
+                    <DatePicker
+                      selected={dueDate}
+                      dateFormat="MMM dd, yy"
+                      onChange={(date) => setDueDate(date)}
                       placeholderText="Select due date"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       required

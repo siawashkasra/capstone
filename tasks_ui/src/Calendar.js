@@ -32,9 +32,9 @@ const Calendar = () => {
   const events = tasks.map((task) => {
     return {
       id: task.id,
-      allDay: "false",
+      allDay: true,
       title: task.title,
-      start: castDate(task.created_at),
+      start: castDate(task.start_date),
       end: addOneDay(task.due_to),
       resource: task.assignee.first_name,
     };

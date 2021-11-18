@@ -94,6 +94,7 @@ class Task(models.Model):
     created_at = models.DateTimeField(
         "Created At", null=False, auto_now_add=True,)
     updated_at = models.DateTimeField("Updated At", null=False, auto_now=True)
+    start_date = models.DateField("Start Date", null=True)
     due_to = models.DateField("Due to", null=True)
     assignee = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True)
     stage = models.ForeignKey(

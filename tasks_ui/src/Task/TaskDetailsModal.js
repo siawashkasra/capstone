@@ -9,7 +9,8 @@ import MultiSelect from "../layouts/MultiSelect";
 const TaskDetailsForm = ({ task }) => {
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.desc);
-  const [startDate, setStartDate] = useState(new Date(task.due_to));
+  const [startDate, setStartDate] = useState(new Date(task.start_date));
+  const [dueDate, setDueDate] = useState(new Date(task.due_to));
   const [selected, setSelected] = useState(task.assignee);
   const [labels, setLabels] = useState(task.labels);
 
@@ -33,12 +34,13 @@ const TaskDetailsForm = ({ task }) => {
                     />
                   </div>
 
-                  <div className="col-span-6">
+                  <div className="col-span-6 flex gap-1 justify-between">
+                    <div className="flex flex-col">
                     <label
                       htmlFor="due-to"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Due to
+                      Start Date
                     </label>
                     <DatePicker
                       selected={startDate}
@@ -49,6 +51,24 @@ const TaskDetailsForm = ({ task }) => {
                       required
                       readOnly={true}
                     />
+                    </div>
+                    <div className="flex flex-col">
+                    <label
+                      htmlFor="due-to"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Due to
+                    </label>
+                    <DatePicker
+                      selected={dueDate}
+                      dateFormat="MMM dd, yy"
+                      onChange={(date) => setDueDate(date)}
+                      placeholderText="Select due date"
+                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      required
+                      readOnly={true}
+                    />
+                    </div>
                   </div>
 
                   <div className="col-span-6">
