@@ -62,15 +62,15 @@ const Form = ({ setOpen, options, handleCreate, teams }) => {
                       type="text"
                       id="title"
                       label="Title"
-                      name={name}
-                      setName={setName}
+                      title={name}
+                      setTitle={setName}
                     />
                   </div>
                   <div className="col-span-6">
                     <TextArea
                       label="Description"
-                      desc={desc}
-                      setDesc={setDesc}
+                      description={desc}
+                      setDescription={setDesc}
                     />
                   </div>
                   <div className="col-span-6">

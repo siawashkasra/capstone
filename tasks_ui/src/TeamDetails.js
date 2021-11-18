@@ -21,7 +21,7 @@ const TeamDetails = (props) => {
 
   return (
     <Layout>
-      <Header title="Team" entity={team} />
+      <Header title="Team" name={team.name} />
       <div className="team-details">
         {members.map((member, index) => (
           <Member key={index} member={member} />
