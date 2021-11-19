@@ -7,6 +7,7 @@ import { useState } from "react";
 import Form from "./UpdateForm";
 import { TrashIcon } from "@heroicons/react/solid";
 import moment from "moment";
+import { setDueDateColor } from "../utilities/Utilities";
 
 const Task = ({
   task,
@@ -45,7 +46,12 @@ const Task = ({
                   <h5 className="p-2 text-left">{task.title}</h5>
                   <Avatar members={[task.assignee]} />
                 </div>
-                <div className="flex w-32 bg-red-300 p-1 rounded-r-lg">
+                <div
+                  className={
+                    "flex w-32 p-1 rounded-r-lg bg-" +
+                    setDueDateColor(task.due_to)
+                  }
+                >
                   <span>{moment(task.due_to).format("ll")}</span>
                   <BellIcon className="w-4" color="red" />
                 </div>

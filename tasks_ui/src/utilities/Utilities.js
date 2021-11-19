@@ -94,7 +94,6 @@ const getCompatibleOptions = (options) => {
   return compatibleOptions;
 };
 
-
 const generateNewID = (list) => {
   // loop over the list and get the id
   let id = 0;
@@ -127,4 +126,29 @@ const castDate = (date) => {
   return moment(date).format("YYYY-MM-DD");
 };
 
-export { shift, move, getCompatibleOptions, generateNewID, extractMembers, castDate };
+const setDueDateColor = (dueDate) => {
+  if (dueDate) {
+    const now = moment();
+    const due = moment(dueDate);
+    const diff = due.diff(now, "days");
+    if (diff < 0) {
+      return "red-800 text-white";
+    } else if (diff < 3) {
+      return "red-300";
+    } else if (diff < 5) {
+      return "yellow-300";
+    } else {
+      return "green-300 text-white";
+    }
+  }
+};
+
+export {
+  shift,
+  move,
+  getCompatibleOptions,
+  generateNewID,
+  extractMembers,
+  castDate,
+  setDueDateColor,
+};

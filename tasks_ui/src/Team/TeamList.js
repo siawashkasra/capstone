@@ -5,19 +5,19 @@ import Modal from "../layouts/Modal";
 import { getTeamData } from "../API/Teams";
 import Form from "./CreateForm";
 import { fetchMembers } from "../API/Members";
-import { create } from "../API/Teams";
+import { create, update } from "../API/Teams";
 import Header from "../layouts/Header";
 
 const TeamList = () => {
   const [open, setOpen] = useState(false);
-  const [teams, setTeam] = useState([]);
+  const [teams, setTeams] = useState([]);
   const [options, setOptions] = useState([]);
 
   const handleCreate = (newTeam) => {
     const currTeam = Array.from(teams);
     currTeam.unshift(newTeam);
-    setTeam(currTeam);
-    create(newTeam, setTeam);
+    setTeams(currTeam);
+    create(newTeam, setTeams);
   };
 
   useEffect(() => {
@@ -25,19 +25,23 @@ const TeamList = () => {
   }, []);
 
   useEffect(() => {
-    getTeamData(setTeam);
+    getTeamData(setTeams);
   }, []);
+
+  const handleUpdate = (updatedTeam) => {
+    setTeams(
+      teams.map((team) => team.id === updatedTeam.id ? updatedTeam : team)
+    )
+    console.log(updatedTeam);
+    update(updatedTeam, setTeams)
+  };
 
   return (
     <Layout>
-      <Header 
-        title="Your Teams" 
-        create={true} 
-        setOpen={setOpen} 
-      />
+      <Header title="Your Teams" create={true} setOpen={setOpen} />
       <div className="grid grid-cols-3 gap-4">
         {teams.map((team, index) => (
-          <Team key={index} team={team} />
+          <Team key={index} team={team} handleUpdate={handleUpdate} />
         ))}
       </div>
       <Modal title="Create a Team" open={open} setOpen={setOpen}>

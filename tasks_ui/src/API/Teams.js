@@ -39,7 +39,7 @@ const uploadCover = async (id, cover, setTeam) => {
   }
 };
 
-const create = async (data, setTeam) => {
+const create = async (data, setTeams) => {
   const newTeam = {
     name: data.name,
     desc: data.desc,
@@ -50,8 +50,23 @@ const create = async (data, setTeam) => {
     auth: AUTH,
   });
   if (res.status === 201) {
-    uploadCover(res.data["id"], data.cover, setTeam);
+    uploadCover(res.data["id"], data.cover, setTeams);
   }
 };
 
-export { getTeamData, getTeam, create };
+const update = async (data, setTeams) => {
+  const updatedTeam = {
+    id: data.id,
+    name: data.name,
+    desc: data.desc,
+    members: data.members,
+  };
+  const res = await axios.put(TEAMS_BASE_URL + data.id + "/", updatedTeam, {
+    auth: AUTH,
+  });
+  if (res.status === 200) {
+    uploadCover(res.data["id"], data.cover, setTeams);
+  }
+};
+
+export { getTeamData, getTeam, create, update };
