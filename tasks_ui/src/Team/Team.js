@@ -48,7 +48,7 @@ const Team = ({ team, handleUpdate, handleDelete }) => {
               </span>
               <span>
                 <TrashIcon
-                  onClick={() => handleDelete(team.id)}
+                  onClick={(e) => handleDelete(e, team.id)}
                   className="w-6 text-red-700 transform transition-transform hover:scale-150"
                 />
               </span>

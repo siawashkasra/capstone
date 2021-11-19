@@ -69,4 +69,13 @@ const update = async (data, setTeams) => {
   }
 };
 
-export { getTeamData, getTeam, create, update };
+const remove = async (id, setTeams) => {
+  const res = await axios.delete(TEAMS_BASE_URL + id + "/", {
+    auth: AUTH,
+  });
+  if (res.status === 200) {
+    getTeamData(setTeams)
+  }
+}
+
+export { getTeamData, getTeam, create, update, remove };
