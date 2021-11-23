@@ -41,7 +41,6 @@ const TaskGroup = () => {
   }, []);
 
   useEffect(() => {
-    console.log("rendering");
     getData(setStage);
   }, [stages.length]);
 

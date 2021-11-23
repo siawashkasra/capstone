@@ -3,6 +3,7 @@ import axios from "axios";
 const STAGE_BASE_URL = "http://localhost:8000/api/task-stages/";
 const RE_ORDER_TASKS_URL = "http://localhost:8000/api/tasks/reorder/";
 const TASKS_BASE_URL = "http://localhost:8000/api/tasks/";
+const BY_STAGE = TASKS_BASE_URL + "by-stage/"
 
 const AUTH = {
   username: "siawashkasra",
@@ -29,12 +30,28 @@ const getTask = async (taskId, setTask) => {
   setTask(response.data);
 };
 
+const getTasksbyStage = async (stageId) => {
+  const response = await axios.get(`${BY_STAGE}${stageId}`, {
+    headers: HEADERS,
+    auth: AUTH,
+  });
+  ;
+  return response.data;
+}
+
+
 const getData = async (setStage) => {
   const response = await axios.get(STAGE_BASE_URL, {
     headers: HEADERS,
     auth: AUTH,
   });
-  setStage(response.data);
+ 
+  let data = [];
+  data = Array.from(response.data);
+  for (let i = 0; i < data.length; i++) {
+    data[i]["tasks"] = await getTasksbyStage(data[i]["id"]);
+  }
+    setStage(data); 
 };
 
 const persistOrder = async (newOrder) => {
@@ -90,4 +107,4 @@ const remove = async (taskId, setStage) => {
   }
 };
 
-export { getTasks, getTask, getData, persistOrder, persistShift, create, update, remove };
+export { getTasks, getTask, getData, getTasksbyStage, persistOrder, persistShift, create, update, remove };

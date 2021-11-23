@@ -5,6 +5,7 @@ from rest_framework import permissions
 from .serializers import LabelSerializer, TeamSerializer, MemberSerializer, UserSerializer, GroupSerializer, TaskSerializer, TaskStageSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.db.models import Q
 
 
 # Create your views here.
@@ -48,7 +49,7 @@ class TeamViewSet(viewsets.ModelViewSet):
     """
 
     def get_queryset(self):
-        return Team.objects.all()
+        return Team.objects.filter(Q(create_uid=self.request.user) | Q(members__in=[Member.objects.filter(user_id=self.request.user).get()])).distinct()
 
     serializer_class = TeamSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -57,7 +58,7 @@ class TeamViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = TeamSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(create_uid=self.request.user)
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
@@ -72,6 +73,12 @@ class TaskViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows tasks to be viewed or edited.
     """
+
+    def get_queryset(self):
+        return Task.objects.all()
+
+    serializer_class = TaskSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     @action(methods=['patch'], detail=False,
             permission_classes=[permissions.IsAuthenticated])
@@ -91,12 +98,20 @@ class TaskViewSet(viewsets.ModelViewSet):
         task.save()
         return Response({'status': 'stage has been updated!'})
 
-    def get_queryset(self):
-        query_set = Task.objects.all()
-        return query_set
+    @action(methods=['GET'], detail=False, permission_classes=[permissions.IsAuthenticated], url_path=r'by-stage/(?P<stage_id>\w+)')
+    def getTasksByStage(self, request, stage_id=None):
+        # serialize the data
+        serializer = TaskSerializer(
+            Task.objects.filter((Q(stage=stage_id)) & (Q(create_uid=self.request.user) | Q(assignee=Member.objects.filter(user_id=self.request.user).get()))).distinct(), many=True)
+        return Response(serializer.data)
 
-    serializer_class = TaskSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # Override create method
+    def create(self, request, *args, **kwargs):
+        serializer = TaskSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(create_uid=self.request.user)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
 
 class TaskStageViewSet(viewsets.ModelViewSet):
@@ -109,6 +124,14 @@ class TaskStageViewSet(viewsets.ModelViewSet):
 
     serializer_class = TaskStageSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    # Override create method
+    def create(self, request, *args, **kwargs):
+        serializer = TaskStageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(create_uid=self.request.user)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
 
 class LabelViewSet(viewsets.ModelViewSet):

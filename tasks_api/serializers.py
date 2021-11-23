@@ -35,8 +35,8 @@ class TeamSerializer(WritableNestedModelSerializer):
 
 # Class TaskStageSerializer.
 class TaskStageSerializer(serializers.ModelSerializer):
-    stage = serializers.CharField(source='get_stage_display')
 
+    stage = serializers.CharField(source='get_stage_display')
     class Meta:
         model = TaskStage
         fields = ['id', 'stage', 'order', 'tasks']

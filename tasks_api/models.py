@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils import timezone
 
 
 # Create your models here.
@@ -16,12 +17,20 @@ class Member(models.Model):
     created_at = models.DateTimeField("Created At", auto_now_add=True)
     updated_at = models.DateTimeField("Update At", auto_now=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    create_uid = models.ForeignKey(User, related_name="member_create_uid", on_delete=models.DO_NOTHING, null=True)
+    update_uid = models.ForeignKey(User, related_name="member_update_ud", on_delete=models.DO_NOTHING, null=True)
 
     def __str__(self):
         return f'{ self.first_name } {self.last_name}'
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created_at = timezone.now()
+        self.updated_at = timezone.now()
+        return super(Member, self).save(*args, **kwargs)
 
 
 # Class Team.
@@ -36,12 +45,23 @@ class Team(models.Model):
     created_at = models.DateTimeField(
         "Created At", auto_now_add=True, null=True)
     updated_at = models.DateTimeField("Update At", auto_now=True, null=True)
-
+    create_uid = models.ForeignKey(User, related_name="team_create_uid", on_delete=models.DO_NOTHING, null=True)
+    update_uid = models.ForeignKey(User, related_name="team_update_ud", on_delete=models.DO_NOTHING, null=True)
+    
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
+
+
+    # Override save method.
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created_at = timezone.now()
+        self.updated_at = timezone.now()
+        super(Team, self).save(*args, **kwargs)
+
 
 
 # Class TaskStage.
@@ -101,8 +121,9 @@ class Task(models.Model):
         TaskStage, related_name="tasks", on_delete=models.DO_NOTHING, null=True)
     order = models.IntegerField("order", null=True)
     labels = models.ManyToManyField(Label, related_name='labels')
-    create_uid = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-
+    create_uid = models.ForeignKey(User, related_name="task_create_uid", on_delete=models.DO_NOTHING, null=True)
+    update_uid = models.ForeignKey(User, related_name="task_update_ud", on_delete=models.DO_NOTHING, null=True)
+    
     def __str__(self):
         return self.title
 
@@ -117,4 +138,9 @@ class Task(models.Model):
                 self.order = last_task.order + 1
             except Task.DoesNotExist:
                 self.order = 1
+        if self.id is None:
+            # update created_at with current time.
+            self.created_at = timezone.now()
+        # update updated_at with current time.
+        self.updated_at = timezone.now()
         super(Task, self).save(*args, **kwargs)

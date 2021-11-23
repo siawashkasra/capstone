@@ -18,7 +18,6 @@ const Task = ({
   options,
 }) => {
   const [open, setOpen] = useState(false);
-
   const handleClick = (e) => {
     // event has already been used for drag and drop
     if (e.defaultPrevented) {
