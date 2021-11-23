@@ -75,7 +75,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     """
 
     def get_queryset(self):
-        return Task.objects.all()
+        return Task.objects.filter(Q(create_uid=self.request.user) | Q(assignee=Member.objects.filter(user_id=self.request.user).get())).distinct()
 
     serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated]
