@@ -8,6 +8,7 @@ import Modal from "../layouts/Modal";
 import Form from "./CreateForm";
 import { fetchMembers } from "../API/Members";
 import { fetchLabels } from "../API/Labels";
+import Loading from "../layouts/Loading";
 
 const TaskGroup = () => {
   const [stages, setStage] = useState([]);
@@ -75,28 +76,32 @@ const TaskGroup = () => {
     <>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex justify-between">
-          {stages.map((stage, index) => (
-            <div key={index} className="m-2 shado w-full">
-              <div className="flex justify-between shadow-lg stage-header p-2 bg-black text-white text-left rounded-md">
-                <h5 className="">{stage.stage}</h5>
-                <span className="p-1 bg-gray-900 rounded-lg transform hover:scale-150 transition-transform hover:rotate-45 shadow-lg">
-                  <PlusIcon
-                    className="w-5"
-                    onClick={() => handleClick(stage)}
+          {stages.length > 0 ? (
+            stages.map((stage, index) => (
+              <div key={index} className="m-2 shado w-full">
+                <div className="flex justify-between shadow-lg stage-header p-2 bg-black text-white text-left rounded-md">
+                  <h5 className="">{stage.stage}</h5>
+                  <span className="p-1 bg-gray-900 rounded-lg transform hover:scale-150 transition-transform hover:rotate-45 shadow-lg">
+                    <PlusIcon
+                      className="w-5"
+                      onClick={() => handleClick(stage)}
+                    />
+                  </span>
+                </div>
+                <div className="stage-body p-1 text-center w-full">
+                  <TaskList
+                    initialTasks={stage.tasks}
+                    id={stage.id}
+                    setStage={setStage}
+                    members={members}
+                    options={options}
                   />
-                </span>
+                </div>
               </div>
-              <div className="stage-body p-1 text-center w-full">
-                <TaskList
-                  initialTasks={stage.tasks}
-                  id={stage.id}
-                  setStage={setStage}
-                  members={members}
-                  options={options}
-                />
-              </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <Loading />
+          )}
         </div>
       </DragDropContext>
       <Modal title="Create a Task" open={open} setOpen={setOpen}>

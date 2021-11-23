@@ -7,6 +7,7 @@ import Form from "./CreateForm";
 import { fetchMembers } from "../API/Members";
 import { create, update, remove } from "../API/Teams";
 import Header from "../layouts/Header";
+import Loading from "../layouts/Loading";
 
 const TeamList = () => {
   const [open, setOpen] = useState(false);
@@ -43,17 +44,23 @@ const TeamList = () => {
 
   return (
     <Layout>
-      <Header title="Your Teams" create={true} setOpen={setOpen} />
-      <div className="grid grid-cols-3 gap-4">
-        {teams.map((team, index) => (
-          <Team
-            key={index}
-            team={team}
-            handleUpdate={handleUpdate}
-            handleDelete={handleDelete}
-          />
-        ))}
-      </div>
+      {teams.length > 0 ? (
+        <>
+          <Header title="Your Teams" create={true} setOpen={setOpen} />
+          <div className="grid grid-cols-3 gap-4">
+            {teams.map((team, index) => (
+              <Team
+                key={index}
+                team={team}
+                handleUpdate={handleUpdate}
+                handleDelete={handleDelete}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <Loading />
+      )}
       <Modal title="Create a Team" open={open} setOpen={setOpen}>
         <Form
           setOpen={setOpen}

@@ -3,7 +3,7 @@ import TaskGroup from "./TaskGroup";
 
 const Tasks = () => {
   return (
-    <Layout title="Tasks">
+    <Layout>
       <TaskGroup />
     </Layout>
   );
