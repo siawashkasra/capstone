@@ -1,4 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
+import { NavLink } from "react-router-dom";
+
 
 const Member = ({ member }) => {
   return (
@@ -13,7 +15,7 @@ const Member = ({ member }) => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-purple-500 uppercase tracking-wider"
                   >
-                    Name
+                    Avatar
                   </th>
                   <th
                     scope="col"
@@ -31,7 +33,7 @@ const Member = ({ member }) => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-purple-500 uppercase tracking-wider"
                   >
-                    Role
+                    Tasks
                   </th>
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Edit</span>
@@ -51,7 +53,7 @@ const Member = ({ member }) => {
                       </div>
                       <div className="ml-4">
                         <div className="text-sm font-medium text-purple-900">
-                          {member.name}
+                          {member.first_name} {member.last_name}
                         </div>
                         <div className="text-sm text-purple-500">
                           {member.email}
@@ -71,7 +73,9 @@ const Member = ({ member }) => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-purple-500">
-                    {member.role}
+                    <NavLink exact to={`/members/${member.id}`}>
+                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">View Details</span>
+                    </NavLink>
                   </td>
                 </tr>
               </tbody>

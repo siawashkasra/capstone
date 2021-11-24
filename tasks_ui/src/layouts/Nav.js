@@ -14,7 +14,6 @@ const navigation = [
   { name: "Team", href: "/teams" },
   { name: "Tasks", href: "/tasks" },
   { name: "Calendar", href: "/calendar" },
-  { name: "Reports", href: "/reports" },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },

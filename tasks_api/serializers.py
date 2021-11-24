@@ -22,7 +22,8 @@ class GroupSerializer(serializers.ModelSerializer):
 class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
-        fields = "__all__"
+        fields =['id', 'first_name', 'last_name', 'email', 'avatar', 'about', 'user', 'tasks', 'team']
+        depth = 1
 
 
 # Class TeamSerializer.
