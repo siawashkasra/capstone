@@ -2,13 +2,9 @@
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { NavLink } from "react-router-dom";
 
-const navigation = [
-  { name: "Product", href: "#" },
-  { name: "Features", href: "#" },
-  { name: "Marketplace", href: "#" },
-  { name: "Company", href: "#" },
-];
+const navigation = [];
 
 const Landing = () => {
   return (
@@ -58,12 +54,14 @@ const Landing = () => {
                       {item.name}
                     </a>
                   ))}
-                  <a
+                  <NavLink
+                    to="/login"
                     href="#"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
+                    aria-current="page"
                   >
                     Log in
-                  </a>
+                  </NavLink>
                 </div>
               </nav>
             </div>
@@ -108,12 +106,18 @@ const Landing = () => {
                       </a>
                     ))}
                   </div>
-                  <a
+                  <NavLink
+                    to="/login"
                     href="#"
-                    className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
+                    className={(isActive) =>
+                      isActive
+                        ? "bg-purple-100 text-purple px-3 py-2 rounded-md text-sm font-medium"
+                        : "text-gray-300 hover:bg-purple-100 hover:text-purple-900 px-3 py-2 rounded-md text-sm font-medium"
+                    }
+                    aria-current="page"
                   >
                     Log in
-                  </a>
+                  </NavLink>
                 </div>
               </Popover.Panel>
             </Transition>
@@ -134,19 +138,20 @@ const Landing = () => {
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
-                  <a
+                  <NavLink
+                    to="/signup"
                     href="#"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                   >
-                    Get started
-                  </a>
+                    Sign up
+                  </NavLink>
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
                   <a
                     href="#"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10"
                   >
-                    Live demo
+                    Sign in
                   </a>
                 </div>
               </div>
