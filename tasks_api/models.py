@@ -2,11 +2,22 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
 
 
 # Create your models here.
 
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
+
 # Class Member.
+
+
 class Member(models.Model):
 
     first_name = models.CharField('First Name', null=True, max_length=256)
@@ -17,8 +28,10 @@ class Member(models.Model):
     created_at = models.DateTimeField("Created At", auto_now_add=True)
     updated_at = models.DateTimeField("Update At", auto_now=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    create_uid = models.ForeignKey(User, related_name="member_create_uid", on_delete=models.DO_NOTHING, null=True)
-    update_uid = models.ForeignKey(User, related_name="member_update_ud", on_delete=models.DO_NOTHING, null=True)
+    create_uid = models.ForeignKey(
+        User, related_name="member_create_uid", on_delete=models.DO_NOTHING, null=True)
+    update_uid = models.ForeignKey(
+        User, related_name="member_update_ud", on_delete=models.DO_NOTHING, null=True)
 
     def __str__(self):
         return f'{ self.first_name } {self.last_name}'
@@ -45,23 +58,24 @@ class Team(models.Model):
     created_at = models.DateTimeField(
         "Created At", auto_now_add=True, null=True)
     updated_at = models.DateTimeField("Update At", auto_now=True, null=True)
-    create_uid = models.ForeignKey(User, related_name="team_create_uid", on_delete=models.DO_NOTHING, null=True)
-    update_uid = models.ForeignKey(User, related_name="team_update_ud", on_delete=models.DO_NOTHING, null=True)
-    
+    create_uid = models.ForeignKey(
+        User, related_name="team_create_uid", on_delete=models.DO_NOTHING, null=True)
+    update_uid = models.ForeignKey(
+        User, related_name="team_update_ud", on_delete=models.DO_NOTHING, null=True)
+
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
 
-
     # Override save method.
+
     def save(self, *args, **kwargs):
         if not self.id:
             self.created_at = timezone.now()
         self.updated_at = timezone.now()
         super(Team, self).save(*args, **kwargs)
-
 
 
 # Class TaskStage.
@@ -116,14 +130,17 @@ class Task(models.Model):
     updated_at = models.DateTimeField("Updated At", null=False, auto_now=True)
     start_date = models.DateField("Start Date", null=True)
     due_to = models.DateField("Due to", null=True)
-    assignee = models.ForeignKey(Member, related_name="tasks" , on_delete=models.SET_NULL, null=True)
+    assignee = models.ForeignKey(
+        Member, related_name="tasks", on_delete=models.SET_NULL, null=True)
     stage = models.ForeignKey(
         TaskStage, related_name="tasks", on_delete=models.DO_NOTHING, null=True)
     order = models.IntegerField("order", null=True)
     labels = models.ManyToManyField(Label, related_name='labels')
-    create_uid = models.ForeignKey(User, related_name="task_create_uid", on_delete=models.DO_NOTHING, null=True)
-    update_uid = models.ForeignKey(User, related_name="task_update_ud", on_delete=models.DO_NOTHING, null=True)
-    
+    create_uid = models.ForeignKey(
+        User, related_name="task_create_uid", on_delete=models.DO_NOTHING, null=True)
+    update_uid = models.ForeignKey(
+        User, related_name="task_update_ud", on_delete=models.DO_NOTHING, null=True)
+
     def __str__(self):
         return self.title
 

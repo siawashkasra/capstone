@@ -3,6 +3,7 @@ from rest_framework import routers
 from tasks_api import views
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework.authtoken import views as v
 
 
 router = routers.DefaultRouter()
@@ -21,6 +22,7 @@ router.register(r'labels', views.LabelViewSet, basename='labels')
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api-token-auth/', v.obtain_auth_token)
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

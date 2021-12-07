@@ -9,6 +9,7 @@ import Form from "./CreateForm";
 import { fetchMembers } from "../API/Members";
 import { fetchLabels } from "../API/Labels";
 import Loading from "../layouts/Loading";
+import { useAuth } from "../API/use-auth";
 
 const TaskGroup = () => {
   const [stages, setStage] = useState([]);
@@ -16,6 +17,8 @@ const TaskGroup = () => {
   const [members, setMembers] = useState([]);
   const [options, setOptions] = useState([]);
   const [currStage, setCurrStage] = useState(stages[0]);
+
+  const auth = useAuth();
 
   const handleClick = (currSt) => {
     setOpen(true);
@@ -30,20 +33,20 @@ const TaskGroup = () => {
           : stage
       )
     );
-    create(newTask, setStage);
+    create(newTask, setStage, auth.token);
   };
 
   useEffect(() => {
-    fetchLabels(setOptions);
+    fetchLabels(setOptions, auth.token);
   }, []);
 
   useEffect(() => {
-    fetchMembers(setMembers);
+    fetchMembers(setMembers, auth.token);
   }, []);
 
   useEffect(() => {
-    getData(setStage);
-  }, [stages.length]);
+    getData(setStage, auth.token);
+  }, [stages.length, auth.token]);
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -64,11 +67,11 @@ const TaskGroup = () => {
       destination.droppableId === source.droppableId &&
       destination.index !== source.index
     ) {
-      shift(stage, source, destination, draggableId, setStage, stages);
+      shift(stage, source, destination, draggableId, setStage, stages, auth.token);
     }
 
     if (destination.droppableId !== source.droppableId) {
-      move(stage, source, destination, stages, setStage);
+      move(stage, source, destination, stages, setStage, auth.token);
     }
   };
 

@@ -36,6 +36,7 @@ CORS_ORIGIN_WHITELIST = (
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework.authtoken',
     'rest_framework',
     'corsheaders',
     'tasks_api',
@@ -152,8 +153,8 @@ REST_FRAMEWORK = {
     ],
 
 
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'rest_framework.authentication.SessionAuthentication',
-    # ),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
     # 'DATETIME_FORMAT': '%b %d, %y',
 }

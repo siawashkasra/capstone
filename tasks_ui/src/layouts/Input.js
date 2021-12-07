@@ -1,4 +1,4 @@
-const Input = ({ type, id, label, title, setTitle, readOnly=false }) => {
+const Input = ({ type, id, label, title, setTitle, readOnly = false }) => {
   return (
     <>
       <div>

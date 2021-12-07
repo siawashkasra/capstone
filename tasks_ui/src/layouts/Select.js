@@ -7,7 +7,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Select = ({ members, selected, setSelected, readonly=false }) => {
+const Select = ({ members, selected, setSelected, readonly = false }) => {
   return (
     <Listbox value={selected} onChange={setSelected}>
       <Listbox.Label className="block text-sm font-medium text-gray-700">

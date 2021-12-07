@@ -3,10 +3,17 @@ import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "./API/use-auth";
 
 const navigation = [];
 
-const Landing = () => {
+const Landing = (props) => {
+  const auth = useAuth();
+
+  if (auth.token) {
+    props.history.push("/teams");
+  }
+
   return (
     <div className="relative bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto">

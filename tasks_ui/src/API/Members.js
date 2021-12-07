@@ -3,40 +3,32 @@ import axios from "axios";
 const BASE_MEMBERS_URL = "http://localhost:8000/api/members/";
 const MEMBERS_BY_TEAM = `/getMembersByTeam/`;
 
-const AUTH = {
-  username: "siawashkasra",
-  password: "kasra@123",
-};
+const fetchMembers = async (setMembers, token) => {
+  if (token) {
+    const res = await axios.get(BASE_MEMBERS_URL, {
+      headers: { Authorization: `Token ${token}` },
+    });
 
-const HEADERS = {
-  Accept: "application/json",
-};
-
-const fetchMembers = async (setMembers) => {
-  const res = await axios.get(BASE_MEMBERS_URL, {
-    auth: AUTH,
-    headers: HEADERS,
-  });
-
-  if (res.status === 200) {
-    setMembers(res.data);
+    if (res.status === 200) {
+      setMembers(res.data);
+    }
   }
 };
 
-const fetchMember = async (id, setMembers) => {
-  const res = await axios.get(BASE_MEMBERS_URL + id + MEMBERS_BY_TEAM, {
-    auth: AUTH,
-    headers: HEADERS,
-  });
-  if (res.status === 200) {
-    setMembers(res.data);
+const fetchMember = async (id, setMembers, token) => {
+  if (token) {
+    const res = await axios.get(BASE_MEMBERS_URL + id + MEMBERS_BY_TEAM, {
+      headers: { Authorization: `Token ${token}` },
+    });
+    if (res.status === 200) {
+      setMembers(res.data);
+    }
   }
 };
 
-const getMemberDetails = async (id, setDetails) => {
+const getMemberDetails = async (id, setDetails, token) => {
   const res = await axios.get(BASE_MEMBERS_URL + id, {
-    auth: AUTH,
-    headers: HEADERS,
+    headers: { Authorization: `Token ${token}` },
   });
   if (res.status === 200) {
     setDetails(res.data);

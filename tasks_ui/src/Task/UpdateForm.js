@@ -9,7 +9,6 @@ import File from "../layouts/File";
 import MultiSelect from "../layouts/MultiSelect";
 import { castDate } from "../utilities/Utilities";
 
-
 const Form = ({ task, handleUpdate, setOpen, members, options }) => {
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.desc);
@@ -19,7 +18,6 @@ const Form = ({ task, handleUpdate, setOpen, members, options }) => {
   const [selected, setSelected] = useState(task.assignee);
   const [labels, setLabels] = useState(task.labels);
   const [file, setFile] = useState("");
-
 
   const handleSubmit = (e) => {
     e.preventDefault();

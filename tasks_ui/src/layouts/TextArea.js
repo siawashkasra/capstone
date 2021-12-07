@@ -1,4 +1,4 @@
-const TextArea = ({ label, description, setDescription, readOnly=false }) => {
+const TextArea = ({ label, description, setDescription, readOnly = false }) => {
   return (
     <>
       <label
@@ -18,7 +18,7 @@ const TextArea = ({ label, description, setDescription, readOnly=false }) => {
         onChange={(e) => setDescription(e.target.value)}
         readOnly={readOnly}
       >
-        { description }
+        {description}
       </textarea>
       <div className="text-red-600"></div>
     </>

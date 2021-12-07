@@ -57,7 +57,7 @@ const customStyles = {
 
 const animatedComponents = makeAnimated();
 const MultiSelect = (props) => {
-  const { options, values, setValues, readOnly=false } = props;
+  const { options, values, setValues, readOnly = false } = props;
 
   return (
     <Select

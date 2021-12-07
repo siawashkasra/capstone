@@ -1,13 +1,16 @@
 import Layout from "./layouts/Layout";
 import { getMemberDetails } from "./API/Members";
 import { useState, useEffect } from "react";
+import { useAuth } from "./API/use-auth";
 
 const MemberDetails = (props) => {
+  const auth = useAuth();
+
   const id = parseInt(props.match.params.id);
   const [member, setDetails] = useState({});
 
   useEffect(() => {
-    getMemberDetails(id, setDetails);
+    getMemberDetails(id, setDetails, auth.token);
   }, [id]);
 
   return (
@@ -16,7 +19,11 @@ const MemberDetails = (props) => {
       <div className="container flex justify-between gap-5">
         <div className="card shadow-lg p-10 rounded-2xl">
           <div className="card-header text-center">
-            <img className="h-50 w-48" src={member.avatar} alt={member.first_name} />
+            <img
+              className="h-50 w-48"
+              src={member.avatar}
+              alt={member.first_name}
+            />
             <h1 className="p-2 text-2xl font-bold">
               {member.first_name} {member.last_name}
             </h1>
@@ -29,38 +36,42 @@ const MemberDetails = (props) => {
             <h1 className="p-2 text-2xl font-bold text-center text-purple-400">
               Tasks
             </h1>
-            {member.tasks && member.tasks.length > 0
-              ? member.tasks.map((task) => (
-                  <div className="card" key={task.id}>
-                    <div className="card-header">
-                      <h1 className="p-2 text-2xl font-bold">{task.title}</h1>
-                      <span className="p-2 text-purple-400 block">
-                        {" "}
-                        {task.desc}{" "}
-                      </span>
-                      <span className="p-2"> {task.due_to} </span>
-                    </div>
+            {member.tasks && member.tasks.length > 0 ? (
+              member.tasks.map((task) => (
+                <div className="card" key={task.id}>
+                  <div className="card-header">
+                    <h1 className="p-2 text-2xl font-bold">{task.title}</h1>
+                    <span className="p-2 text-purple-400 block">
+                      {" "}
+                      {task.desc}{" "}
+                    </span>
+                    <span className="p-2"> {task.due_to} </span>
                   </div>
-                ))
-              : <h1>No Tasks Found</h1> }
+                </div>
+              ))
+            ) : (
+              <h1>No Tasks Found</h1>
+            )}
           </div>
           <div className="">
             <h1 className="p-2 text-2xl font-bold text-center text-purple-400">
               Teams In
             </h1>
-            {member.team && member.team.length > 0
-              ? member.team.map((team) => (
-                  <div className="card" key={team.id}>
-                    <div className="card-header">
-                      <h1 className="p-2 text-2xl font-bold">{team.name}</h1>
-                      <span className="p-2 text-purple-400 block">
-                        {" "}
-                        {team.desc}{" "}
-                      </span>
-                    </div>
+            {member.team && member.team.length > 0 ? (
+              member.team.map((team) => (
+                <div className="card" key={team.id}>
+                  <div className="card-header">
+                    <h1 className="p-2 text-2xl font-bold">{team.name}</h1>
+                    <span className="p-2 text-purple-400 block">
+                      {" "}
+                      {team.desc}{" "}
+                    </span>
                   </div>
-                ))
-              : <h1>No Team Found</h1> }
+                </div>
+              ))
+            ) : (
+              <h1>No Team Found</h1>
+            )}
           </div>
         </div>
       </div>

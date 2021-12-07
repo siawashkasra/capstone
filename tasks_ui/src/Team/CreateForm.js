@@ -12,10 +12,10 @@ const Form = ({ setOpen, options, handleCreate, teams }) => {
   const [members, setMembers] = useState([]);
   const [cover, setCover] = useState([]);
 
-  let ids = []
+  let ids = [];
   members.forEach((member) => {
-    ids = [...ids, member.id]
-  })
+    ids = [...ids, member.id];
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ const Form = ({ setOpen, options, handleCreate, teams }) => {
       cover,
       name,
       desc,
-      members: ids
+      members: ids,
     };
     handleCreate(newTeam);
     setOpen(false);

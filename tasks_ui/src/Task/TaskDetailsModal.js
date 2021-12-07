@@ -36,38 +36,38 @@ const TaskDetailsForm = ({ task }) => {
 
                   <div className="col-span-6 flex gap-1 justify-between">
                     <div className="flex flex-col">
-                    <label
-                      htmlFor="due-to"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Start Date
-                    </label>
-                    <DatePicker
-                      selected={startDate}
-                      dateFormat="MMM dd, yy"
-                      onChange={(date) => setStartDate(date)}
-                      placeholderText="Select due date"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      required
-                      readOnly={true}
-                    />
+                      <label
+                        htmlFor="due-to"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Start Date
+                      </label>
+                      <DatePicker
+                        selected={startDate}
+                        dateFormat="MMM dd, yy"
+                        onChange={(date) => setStartDate(date)}
+                        placeholderText="Select due date"
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        required
+                        readOnly={true}
+                      />
                     </div>
                     <div className="flex flex-col">
-                    <label
-                      htmlFor="due-to"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Due to
-                    </label>
-                    <DatePicker
-                      selected={dueDate}
-                      dateFormat="MMM dd, yy"
-                      onChange={(date) => setDueDate(date)}
-                      placeholderText="Select due date"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      required
-                      readOnly={true}
-                    />
+                      <label
+                        htmlFor="due-to"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Due to
+                      </label>
+                      <DatePicker
+                        selected={dueDate}
+                        dateFormat="MMM dd, yy"
+                        onChange={(date) => setDueDate(date)}
+                        placeholderText="Select due date"
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        required
+                        readOnly={true}
+                      />
                     </div>
                   </div>
 

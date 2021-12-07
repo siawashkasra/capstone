@@ -2,8 +2,10 @@ import Task from "./Task";
 import { Droppable } from "react-beautiful-dnd";
 import { useLayoutEffect, useState } from "react";
 import { update, remove } from "../API/Tasks";
+import { useAuth } from "../API/use-auth";
 
 const TaskList = ({ setStage, initialTasks, id, members, options }) => {
+  const auth = useAuth();
   const [tasks, setTasks] = useState(initialTasks);
 
   useLayoutEffect(() => {
@@ -14,12 +16,12 @@ const TaskList = ({ setStage, initialTasks, id, members, options }) => {
     setTasks(
       tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
     );
-    update(updatedTask, setStage);
+    update(updatedTask, setStage, auth.token);
   };
 
   const handleDelete = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
-    remove(id, setStage);
+    remove(id, setStage, auth.token);
   };
 
   return (

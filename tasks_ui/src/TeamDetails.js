@@ -5,18 +5,20 @@ import { getTeam } from "./API/Teams";
 import { useEffect } from "react";
 import { fetchMember } from "./API/Members";
 import Header from "./layouts/Header";
+import { useAuth } from "./API/use-auth";
 
 const TeamDetails = (props) => {
+  const auth = useAuth();
   const id = props.match.params.id;
   const [team, setTeam] = useState({});
   const [members, setMembers] = useState([]);
 
   useEffect(() => {
-    getTeam(id, setTeam);
+    getTeam(id, setTeam, auth.token);
   }, [id]);
 
   useEffect(() => {
-    fetchMember(id, setMembers);
+    fetchMember(id, setMembers, auth.token);
   }, [id]);
 
   return (

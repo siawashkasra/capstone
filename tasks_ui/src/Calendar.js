@@ -7,16 +7,23 @@ import { getTasks } from "./API/Tasks";
 import { castDate } from "./utilities/Utilities";
 import Modal from "./layouts/Modal";
 import TaskDetailsForm from "./Task/TaskDetailsModal";
+import { useAuth } from "./API/use-auth";
 
 const localizer = momentLocalizer(moment);
 
-const Calendar = () => {
+const Calendar = (props) => {
+  const auth = useAuth();
+
+  if (!auth.token) {
+    props.history.push("/login");
+  }
+
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState({});
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    getTasks(setTasks);
+    getTasks(setTasks, auth.token);
   }, []);
 
   const getEventDetails = (event) => {

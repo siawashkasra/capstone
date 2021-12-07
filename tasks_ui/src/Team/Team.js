@@ -7,18 +7,21 @@ import { TrashIcon } from "@heroicons/react/outline";
 import Modal from "../layouts/Modal";
 import Form from "./UpdateForm";
 import { fetchMembers } from "../API/Members";
+import { useAuth } from "../API/use-auth";
 
 const Team = ({ team, handleUpdate, handleDelete }) => {
   const [members, setMembers] = useState([]);
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
 
-  useEffect(() => {
-    fetchMember(team.id, setMembers);
-  }, [team]);
+  const auth = useAuth();
 
   useEffect(() => {
-    fetchMembers(setOptions);
+    fetchMember(team.id, setMembers, auth.token);
+  }, [team, auth.token]);
+
+  useEffect(() => {
+    fetchMembers(setOptions, auth.token);
   }, []);
 
   const handleModal = (e) => {
