@@ -51,7 +51,7 @@ const TeamList = (props) => {
 
   return (
     <Layout>
-      {teams.length > 0 ? (
+      {teams ? (
         <>
           <Header title="Your Teams" create={true} setOpen={setOpen} />
           <div className="grid grid-cols-3 gap-4">

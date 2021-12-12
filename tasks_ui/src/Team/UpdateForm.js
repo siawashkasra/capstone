@@ -26,6 +26,7 @@ const Form = ({ setOpen, teamMembers, options, handleUpdate, team }) => {
       desc,
       members: ids,
     };
+    console.log(updatedTeam)
     handleUpdate(updatedTeam);
     setOpen(false);
   };

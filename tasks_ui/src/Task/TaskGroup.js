@@ -79,7 +79,7 @@ const TaskGroup = () => {
     <>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex justify-between">
-          {stages.length > 0 ? (
+          {stages ? (
             stages.map((stage, index) => (
               <div key={index} className="m-2 shado w-full">
                 <div className="flex justify-between shadow-lg stage-header p-2 bg-black text-white text-left rounded-md">

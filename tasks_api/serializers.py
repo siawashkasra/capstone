@@ -6,9 +6,21 @@ from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 # Class UserSerializer.
 class UserSerializer(serializers.ModelSerializer):
+
+
+    password = serializers.CharField(write_only=True,)
     class Meta:
-        model = User
-        fields = ['url', 'username', 'email', 'groups']
+       model = User
+       fields = ('id', 'username', 'email', 'password', 'is_superuser')
+
+    def create(self, validated_data):
+        user = super(UserSerializer, self).create(validated_data)
+        if 'password' in validated_data:
+              user.set_password(validated_data['password'])
+              user.save()
+        return user
+
+        
 
 
 # Class GroupSerializer.
@@ -22,8 +34,8 @@ class GroupSerializer(serializers.ModelSerializer):
 class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
-        fields =['id', 'first_name', 'last_name', 'email', 'avatar', 'about', 'user', 'tasks', 'team']
-        depth = 1
+        fields =['id', 'first_name', 'last_name', 'email', 'avatar', 'about', 'user']
+        # depth = 1
 
 
 # Class TeamSerializer.

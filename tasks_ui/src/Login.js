@@ -15,6 +15,7 @@
   ```
 */
 import { LockClosedIcon } from "@heroicons/react/solid";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "./API/use-auth";
 
@@ -45,6 +46,32 @@ const Login = (props) => {
         <body class="h-full">
         ```
       */}
+      <nav
+        className="p-12 relative flex items-center justify-between sm:h-10 lg:justify-start"
+        aria-label="Global"
+      >
+        <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
+          <div className="flex items-center justify-between w-full md:w-auto">
+            <NavLink to="/landing" href="#">
+              <span className="sr-only">Workflow</span>
+              <img
+                className="h-8 w-auto sm:h-10"
+                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+              />
+            </NavLink>
+          </div>
+        </div>
+        <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
+          <NavLink
+            to="/signup"
+            href="#"
+            className="font-medium text-indigo-600 hover:text-indigo-500"
+            aria-current="page"
+          >
+            Sign up
+          </NavLink>
+        </div>
+      </nav>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>

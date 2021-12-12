@@ -95,6 +95,7 @@ const update = async (updatedTask, setStage, token) => {
     }
   );
   if (res.status === 200) {
+    console.log(res)
     getData(setStage, token);
   }
 };

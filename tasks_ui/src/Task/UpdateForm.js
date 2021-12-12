@@ -21,6 +21,7 @@ const Form = ({ task, handleUpdate, setOpen, members, options }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(selected)
     const updatedTask = {
       id: task.id,
       title: title,

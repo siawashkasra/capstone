@@ -6,17 +6,19 @@ from .serializers import LabelSerializer, TeamSerializer, MemberSerializer, User
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Q
-
+#import status
+from rest_framework import status
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
+    def get_queryset(self):
+        return User.objects.filter(pk=self.request.user.id)
 
 class GroupViewSet(viewsets.ModelViewSet):
     """
@@ -33,7 +35,7 @@ class MemberViewSet(viewsets.ModelViewSet):
     """
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     @action(methods=['GET'], detail=True, permission_classes=[permissions.IsAuthenticated])
     def getMembersByTeam(self, request, pk):
@@ -112,8 +114,7 @@ class TaskViewSet(viewsets.ModelViewSet):
             serializer.save(create_uid=self.request.user)
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
-
-
+    
 class TaskStageViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows task stages to be viewed or edited.
