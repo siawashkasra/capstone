@@ -12,7 +12,8 @@ connect Django with React and how to integrate complex libraries like react-dnd 
 ## Features:
 1. Create Teams
 2. Create and Assign Tasks
-3. View tasks on Calendar
+3. Drag and Drop Tasks
+4. View tasks on Calendar
 
 
 ## This project is divided into two different apps
@@ -21,8 +22,13 @@ connect Django with React and how to integrate complex libraries like react-dnd 
 
 ### Backend API
 This part contains the API Logic, 
-Django Rest Framework has been used to develop the API using
-Models, Serializers and Views
+Django Rest Framework has been used to develop the API, file structure for this part is as follows:
+1. Models:
+Holdes the database representation
+2. Serializers: 
+Allow complex data such as querysets and model instances to be converted to native Python datatypes that can then be easily rendered into JSON, XML or other content types
+3. Views: 
+Allows you to combine the logic for a set of related views in a single class, called a ViewSet 
 
 ### Frontend App
 This part contains the the frontend App, 
@@ -46,5 +52,7 @@ In order to run the application follow the below steps:
 
 ### Note: Please follow the standard react and django documentation for project setup and details.
 
-
+![Screenshot 2021-12-13 at 11-25-42 React App](https://user-images.githubusercontent.com/8684065/145766197-de1647fd-cf52-408e-adfd-8297cc2a8433.png)
+![Screenshot 2021-12-13 at 11-25-55 React App](https://user-images.githubusercontent.com/8684065/145766223-824e8fe7-2c7b-4276-ba96-6e2a6d98c335.png)
+![Screenshot 2021-12-13 at 11-26-08 React App](https://user-images.githubusercontent.com/8684065/145766234-0dfd5401-64c8-4d09-9bc0-fd440624092b.png)
 
