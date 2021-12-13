@@ -48,7 +48,8 @@ In order to run the application follow the below steps:
 1. Create a database and make sure django migrations are run successfully
 2. Navigate to tasks_ui folder and run npm install to install all the dependencies
 3. use npm run start to start the frontend.
-4. Navigate to tasks_api folder and run python3 manage.py to start the backend app
+4. Navigate to tasks_api folder and make sure to install the dependencies in the requirements.txt folder
+5. Run python3 manage.py to start the backend app
 
 ### Note: Please follow the standard react and django documentation for project setup and details.
 
