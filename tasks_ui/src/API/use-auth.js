@@ -20,15 +20,20 @@ function useProvideAuth() {
   const [token, setToken] = useState(false || getToken());
   // Wrap any Firebase methods we want to use making sure ...
   // ... to save the user to state.
-  const signin = async (usrname, pass) => {
-    const res = await axios.post("http://localhost:8000/api-token-auth/", {
-      username: usrname,
-      password: pass,
-    });
-    if (res.status === 200) {
-      setToken(res.data.token);
-      storeToken(res.data.token);
-      return true;
+  const signin = async (usrname, pass, setError) => {
+    try {
+      const res = await axios.post("http://localhost:8000/api-token-auth/", {
+        username: usrname,
+        password: pass,
+      });
+
+      if (res.status === 200) {
+        setToken(res.data.token);
+        storeToken(res.data.token);
+        return true;
+      }
+    } catch (error) {
+      setError("Invalid username or password");
     }
     return false;
   };
@@ -43,8 +48,7 @@ function useProvideAuth() {
   };
   const signout = () => {
     setToken(false);
-    removeToken()
-    
+    removeToken();
   };
   // Subscribe to user on mount
   // Because this sets state in the callback it will cause any ...
@@ -80,4 +84,4 @@ const getToken = () => {
 
 const removeToken = () => {
   localStorage.removeItem("token");
-}
+};

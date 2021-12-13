@@ -23,6 +23,7 @@ const Login = (props) => {
   const auth = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   if (auth.token) {
     props.history.push("/landing");
@@ -30,10 +31,11 @@ const Login = (props) => {
 
   const submit = async (e) => {
     e.preventDefault();
-    const res = await auth.signin(email, password);
+    const res = await auth.signin(email, password, setError);
     if (res === true) {
       props.history.push("/teams");
     }
+    console.log("errror", error);
   };
 
   return (
@@ -83,6 +85,9 @@ const Login = (props) => {
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
               Sign in to your account
             </h2>
+            <p className="mt-2 text-center text-sm leading-5 text-red-600">
+              {error}
+            </p>
           </div>
           <form className="mt-8 space-y-6" onSubmit={submit}>
             <input type="hidden" name="remember" defaultValue="true" />

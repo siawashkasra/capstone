@@ -26,6 +26,8 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [error, setError] = useState("");
+
   let history = useHistory();
 
   const handleSubmit = (e) => {
@@ -83,6 +85,9 @@ const Signup = () => {
       if (member.status === 201) {
         history.push("/login");
       }
+      if (member.status === 400) {
+        setError("Something went wrong, please try again!");
+      }
     }
   };
 
@@ -133,6 +138,9 @@ const Signup = () => {
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
               Create a new account
             </h2>
+            <p className="mt-2 text-center text-sm leading-5 text-gray-600">
+              {error}
+            </p>
           </div>
           <div className="bg-white px-4  sm:rounded-lg sm:px-10">
             <form onSubmit={handleSubmit}>
